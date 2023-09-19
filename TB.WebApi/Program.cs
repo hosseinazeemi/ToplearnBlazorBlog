@@ -19,6 +19,7 @@ namespace TB.WebApi
             string connection = builder.Configuration.GetSection("ConnectionStrings")["DefaultConnection"];
             builder.Services.AddDbContext<AppDbContext>(p => p.UseSqlServer(connection));
             builder.Services.AddScoped<IAppDbContext , AppDbContext>();
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
