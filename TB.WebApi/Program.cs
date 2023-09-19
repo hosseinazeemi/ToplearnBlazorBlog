@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TB.Application.Interfaces;
 using TB.Persistence.Context;
+using TB.WebApi.Services;
 
 namespace TB.WebApi
 {
@@ -19,6 +20,7 @@ namespace TB.WebApi
             string connection = builder.Configuration.GetSection("ConnectionStrings")["DefaultConnection"];
             builder.Services.AddDbContext<AppDbContext>(p => p.UseSqlServer(connection));
             builder.Services.AddScoped<IAppDbContext , AppDbContext>();
+            builder.Services.AddScoped<IFileService , FileService>();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             var app = builder.Build();
 
