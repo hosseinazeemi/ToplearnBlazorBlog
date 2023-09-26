@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TB.Shared.Dto.Global
 {
-    public class MediaDto
+    public class FileDto
     {
         public byte[] Bytes { get; set; }
         public string Extension { get; set; } // .jpg

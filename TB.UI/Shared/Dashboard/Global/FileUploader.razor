@@ -1,0 +1,62 @@
+﻿@using TB.Shared.Dto.Global
+@using Tewr.Blazor.FileReader
+@inject IFileReaderService _fileService
+
+<div class="row gap-2 p-2">
+    <div class="col-md-12">
+        <label class="form-label">فایل را انتخاب کنید</label>
+        <input type="file" class="form-control" @ref="_ref" @onchange="OnSelectFile" />
+    </div>
+
+    @if (selectedFile != null)
+    {
+        <div class="col-md-12 text-center">
+            <embed class="file-preview"
+               height="240"
+               width="300"
+               type="@selectedFile.MimeType"
+               src="data:@selectedFile.MimeType;base64,@(Convert.ToBase64String(selectedFile.Bytes))" />
+        </div>
+        <div class="col-md-12 text-center">
+            <button class="btn btn-success" @onclick="ConfirmFile">تایید فایل</button>
+        </div>
+    }
+</div>
+
+@code {
+    ElementReference _ref;
+    byte[] fileBytes;
+    FileDto selectedFile;
+    [Parameter]
+    public EventCallback<FileDto> OnConfirmFile { get; set; }
+
+    public async Task OnSelectFile()
+    {
+        foreach (var item in await _fileService.CreateReference(_ref).EnumerateFilesAsync())
+        {
+            using (MemoryStream ms = await item.CreateMemoryStreamAsync(2048))
+            {
+                fileBytes = new byte[ms.Length];
+                ms.Read(fileBytes, 0, (int)ms.Length);
+            }
+
+            var fileInfo = item.ReadFileInfoAsync().Result;
+            selectedFile = new FileDto
+                {
+                    Bytes = fileBytes,
+                    Extension = fileInfo.Name.Split(".")[1],
+                    MimeType = fileInfo.Type,
+                    Name = fileInfo.Name
+                };
+        }
+        StateHasChanged();
+    }
+    public async Task ConfirmFile()
+    {
+        if (OnConfirmFile.HasDelegate)
+            await OnConfirmFile.InvokeAsync(selectedFile);
+
+        selectedFile = null;
+        fileBytes = new byte[0];
+    }
+}

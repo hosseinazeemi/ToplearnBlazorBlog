@@ -5,7 +5,7 @@ namespace TB.WebApi.Services
     public interface IFileService
     {
         bool Delete(string fileName, string folderName);
-        string Save(MediaDto media, string folderName);
+        string Save(FileDto file, string folderName);
     }
     public class FileService:IFileService
     {
@@ -15,16 +15,16 @@ namespace TB.WebApi.Services
             _env = env;
         }
 
-        public string Save(MediaDto media ,string folderName)
+        public string Save(FileDto file ,string folderName)
         {
-            string fileName = $"{Guid.NewGuid()}.{media.Extension}";
+            string fileName = $"{Guid.NewGuid()}.{file.Extension}";
             string directory = Path.Combine(_env.WebRootPath , folderName);
             string path = Path.Combine(directory , fileName);
 
             if (!Directory.Exists(directory))
                 Directory.CreateDirectory(directory);
 
-            File.WriteAllBytesAsync(path , media.Bytes).GetAwaiter();
+            File.WriteAllBytesAsync(path , file.Bytes).GetAwaiter();
 
             return fileName;
         }

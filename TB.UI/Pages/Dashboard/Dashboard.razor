@@ -1,8 +1,20 @@
 ﻿@page "/dashboard"
+@using TB.Shared.Dto.Global
 @using TB.UI.Shared.Dashboard
+@using TB.UI.Shared.Dashboard.Global
 @layout DashboardLayout
 
 <MudButton Variant="Variant.Filled">Default</MudButton>
 <MudButton Variant="Variant.Filled" Color="Color.Primary">Primary</MudButton>
 <MudButton Variant="Variant.Filled" Color="Color.Secondary">Secondary</MudButton>
 <MudButton Variant="Variant.Filled" Disabled="true">Disabled</MudButton>
+
+<FileUploader OnConfirmFile="ConfirmFile" />
+
+
+@code {
+    public async Task ConfirmFile(FileDto file)
+    {
+        
+    }
+}
