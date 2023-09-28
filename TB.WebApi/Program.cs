@@ -22,6 +22,7 @@ namespace TB.WebApi
             builder.Services.AddScoped<IAppDbContext , AppDbContext>();
             builder.Services.AddScoped<IFileService , FileService>();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            builder.Services.AddHttpContextAccessor();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

@@ -32,6 +32,9 @@
 
     public async Task OnSelectFile()
     {
+        selectedFile = null;
+        fileBytes = new byte[0];
+
         foreach (var item in await _fileService.CreateReference(_ref).EnumerateFilesAsync())
         {
             using (MemoryStream ms = await item.CreateMemoryStreamAsync(2048))

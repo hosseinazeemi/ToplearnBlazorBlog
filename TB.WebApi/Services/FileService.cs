@@ -10,9 +10,11 @@ namespace TB.WebApi.Services
     public class FileService:IFileService
     {
         private readonly IWebHostEnvironment _env;
-        public FileService(IWebHostEnvironment env)
+        private readonly IHttpContextAccessor _httpContext;
+        public FileService(IWebHostEnvironment env, IHttpContextAccessor httpContext)
         {
             _env = env;
+            _httpContext = httpContext;
         }
 
         public string Save(FileDto file ,string folderName)
@@ -38,6 +40,28 @@ namespace TB.WebApi.Services
                 File.Delete(address);
 
             return true;
+        }
+
+        public async Task<string> Save(IFormFile file , string folderName)
+        {
+            string fileName = $"{Guid.NewGuid() + Path.GetExtension(file.FileName)}";
+            string directory = Path.Combine(_env.WebRootPath , folderName);
+            string path = Path.Combine(directory , fileName);
+
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+
+            if (file.Length > 0)
+            {
+                using (Stream fileStream = new FileStream(path , FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+            }
+            // https :// google.com / images / a.png
+            string fullUrl = $"{_httpContext.HttpContext.Request.Scheme}://{_httpContext.HttpContext.Request.Host}/{folderName}/{fileName}";
+           
+            return fullUrl;
         }
     }
 }

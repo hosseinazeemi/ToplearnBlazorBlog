@@ -4,17 +4,30 @@
 @using TB.UI.Shared.Dashboard.Global
 @layout DashboardLayout
 
-<MudButton Variant="Variant.Filled">Default</MudButton>
+@*<MudButton Variant="Variant.Filled">Default</MudButton>
 <MudButton Variant="Variant.Filled" Color="Color.Primary">Primary</MudButton>
 <MudButton Variant="Variant.Filled" Color="Color.Secondary">Secondary</MudButton>
 <MudButton Variant="Variant.Filled" Disabled="true">Disabled</MudButton>
 
-<FileUploader OnConfirmFile="ConfirmFile" />
-
+<FileUploader OnConfirmFile="ConfirmFile" />*@
+<EditForm Model="user">
+    <CKEditor DisplayName="توضیحات" @bind-Value="Description" />
+</EditForm>
 
 @code {
+    public string Description { get; set; }
     public async Task ConfirmFile(FileDto file)
     {
-        
+    }
+    public User user { get; set; }
+    protected override Task OnInitializedAsync()
+    {
+        user = new User();
+
+        return base.OnInitializedAsync();
+    }
+    public class User
+    {
+        public string Description { get; set; }
     }
 }
