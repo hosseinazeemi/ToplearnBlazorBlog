@@ -22,6 +22,7 @@ namespace TB.UI
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IContentService, ContentService>();
+            builder.Services.AddScoped<ICommentService, CommentService>();
             builder.Services.AddMudServices();
             builder.Services.AddFileReaderService();
             await builder.Build().RunAsync();

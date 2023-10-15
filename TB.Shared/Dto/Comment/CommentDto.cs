@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TB.Shared.Enums;
 
-namespace TB.Shared.Dto.Content
+namespace TB.Shared.Dto.Comment
 {
     public class CommentDto
     {

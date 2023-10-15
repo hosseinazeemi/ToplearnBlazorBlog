@@ -26,6 +26,7 @@ namespace TB.WebApi
             builder.Services.AddScoped<ICategoryService , CategoryService>();
             builder.Services.AddScoped<IUserService , UserService>();
             builder.Services.AddScoped<IContentService , ContentService>();
+            builder.Services.AddScoped<ICommentService , CommentService>();
 
             string clientUrl = builder.Configuration.GetValue<string>("ClientUrl");
             builder.Services.AddCors(option =>
