@@ -1,8 +1,16 @@
 ﻿@using TB.Shared.Dto.Global
 @using Tewr.Blazor.FileReader
 @inject IFileReaderService _fileService
+@inject IConfiguration config
 
 <div class="row gap-2 p-2">
+    @if (!string.IsNullOrEmpty(CurrentImage))
+    {
+        <div class="col-md-3">
+            <img src="@(Path.Combine(config.GetValue<string>("ApiBaseUrl") , CurrentImage))" class="rounded" width="220" height="180" />
+        </div>
+    }
+
     <div class="col-md-12">
         <label class="form-label">فایل را انتخاب کنید</label>
         <input type="file" class="form-control" @ref="_ref" @onchange="OnSelectFile" />
@@ -30,6 +38,9 @@
     [Parameter]
     public EventCallback<FileDto> OnConfirmFile { get; set; }
 
+    [Parameter]
+    public string? CurrentImage { get; set; }
+
     public async Task OnSelectFile()
     {
         selectedFile = null;
@@ -52,6 +63,7 @@
                     Name = fileInfo.Name
                 };
         }
+        CurrentImage = null;
         StateHasChanged();
     }
     public async Task ConfirmFile()

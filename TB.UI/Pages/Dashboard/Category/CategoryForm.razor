@@ -1,0 +1,44 @@
+﻿@using TB.Shared.Enums
+
+<EditForm Model="@Category" OnValidSubmit="Submit">
+    <DataAnnotationsValidator />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label class="form-label">عنوان</label>
+                <input @bind-value="@Category.Name" name="Name" type="text" class="form-control" placeholder="عنوان خبر">
+                <ValidationMessage For="(() => Category.Name)" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label class="form-label">وضعیت</label>
+                <select class="form-select" @onchange="OnChangeStatus">
+                    @if (Category.Status == StatusType.DeActive)
+                    {
+                        <option value="0" selected="">غیر فعال</option>
+                        <option value="1">فعال</option>
+                    }
+                    else
+                    {
+                        <option value="0">غیر فعال</option>
+                        <option value="1" selected="">فعال</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" checked="@Category.IsSpecial" @onchange="OnIsSpecialChange" id="postCheck">
+                <label class="form-check-label" for="postCheck">
+                    این خبر ویژه شود؟
+                </label>
+            </div>
+        </div>
+        <div class="col-md-12 text-start">
+            <button class="btn btn-primary w-100" type="submit">
+                @SubmitTitle
+            </button>
+        </div>
+    </div>
+</EditForm>

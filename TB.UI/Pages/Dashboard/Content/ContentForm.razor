@@ -1,0 +1,104 @@
+﻿@using TB.Shared.Enums
+@using TB.UI.Shared.Dashboard.Global
+
+<EditForm Model="@Content" OnValidSubmit="Submit">
+    <DataAnnotationsValidator />
+    <div class="row">
+
+        @if (categories != null)
+        {
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label class="form-label">دسته بندی</label>
+                    <select class="form-control" @onchange="OnChangeCategory">
+                        @*@bind="Content.CategoryId"*@
+                        <option value="0">لطفا انتخاب کنید</option>
+                        @foreach (var item in categories)
+                        {
+                            @if (item.Id == Content.CategoryId)
+                            {
+                                <option value="@item.Id" selected="">@item.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+        }
+
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label">عنوان</label>
+                <input @bind-value="@Content.Title" name="Title" type="text" class="form-control" placeholder="عنوان">
+                <ValidationMessage For="(() => Content.Title)" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label">لینک Instagram</label>
+                <input @bind-value="@Content.Instagram" name="Instagram" type="text" class="form-control" placeholder="">
+                <ValidationMessage For="(() => Content.Instagram)" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label">لینک Whatsapp</label>
+                <input @bind-value="@Content.Whatsapp" name="Whatsapp" type="text" class="form-control" placeholder="">
+                <ValidationMessage For="(() => Content.Whatsapp)" />
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label">وضعیت</label>
+                <select class="form-select" @onchange="OnChangeStatus">
+                    @if (Content.Status == StatusType.DeActive)
+                    {
+                        <option value="0" selected="">غیر فعال</option>
+                        <option value="1">فعال</option>
+                    }
+                    else
+                    {
+                        <option value="0">غیر فعال</option>
+                        <option value="1" selected="">فعال</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label">نوع مطلب</label>
+                <select class="form-select" @onchange="OnChangeContentType">
+                    @if (Content.Type == ContentType.Blog)
+                    {
+                        <option value="0" selected="">مقاله</option>
+                        <option value="1">خبر</option>
+                    }
+                    else
+                    {
+                        <option value="0">مقاله</option>
+                        <option value="1" selected="">خبر</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="mb-3">
+                <label class="form-label">توضیحات</label>
+                <CKEditor @bind-Value="Content.Description" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <FileUploader OnConfirmFile="OnConfirmFile" CurrentImage="@Content.Image" />
+        </div>
+        <div class="col-md-12 text-start">
+            <button class="btn btn-primary w-100" type="submit">
+                @SubmitTitle
+            </button>
+        </div>
+    </div>
+</EditForm>

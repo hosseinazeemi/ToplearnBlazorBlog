@@ -17,6 +17,7 @@ namespace TB.Domain.Models
         public string Password { get; set; }
         public string Image { get; set; }
         public string Description { get; set; }
+        public DateTime? CreatedAt { get; set; }
         public StatusType Status { get; set; }
         public RoleType Role { get; set; }
         public List<Content> Contents { get; set; }

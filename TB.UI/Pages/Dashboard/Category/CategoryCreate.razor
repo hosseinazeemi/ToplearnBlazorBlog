@@ -1,0 +1,25 @@
+﻿@page "/dashboard/categories/create"
+@using TB.UI.Shared.Dashboard
+@layout DashboardLayout
+
+<section class="py-4">
+    <div class="container">
+        <div class="row pb-4">
+            <div class="col-12">
+                <h1 class="mb-0 h3">ایجاد دسته بندی</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card border">
+                    <div class="card-body">
+                        <CategoryForm Category="@category" OnSubmit="Create" SubmitTitle="ثبت اطلاعات" />
+                        <MudOverlay Visible="@showSpinner" LightBackground="true" Absolute="true">
+                            <MudProgressCircular Color="Color.Primary" Size="Size.Small" Indeterminate="true"/>
+                        </MudOverlay>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

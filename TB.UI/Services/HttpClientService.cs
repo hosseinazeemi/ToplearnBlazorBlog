@@ -33,7 +33,7 @@ namespace TB.UI.Services
         }
         public async Task<ResponseDto<TResult>> PostAsync<TResult, TData>(string url, TData data)
         {
-            var serializeData = JsonConvert.SerializeObject(data);
+            var serializeData = JsonConvert.SerializeObject(data, _jsonSerializerSetting);
             var stringContent = new StringContent(serializeData, Encoding.UTF8, "application/json");
 
             var response = await _httpClient.PostAsync(url, stringContent);

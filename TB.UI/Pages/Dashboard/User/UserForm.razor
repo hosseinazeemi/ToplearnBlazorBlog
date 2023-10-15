@@ -1,0 +1,97 @@
+﻿@using TB.Shared.Enums
+@using TB.UI.Shared.Dashboard.Global
+
+<EditForm Model="@User" OnValidSubmit="Submit">
+    <DataAnnotationsValidator />
+    <div class="row">
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label">نام</label>
+                <input @bind-value="@User.Name" name="Name" type="text" class="form-control" placeholder="نام">
+                <ValidationMessage For="(() => User.Name)" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label">نام خانواداگی</label>
+                <input @bind-value="@User.LastName" name="LastName" type="text" class="form-control" placeholder="نام خانوادگی">
+                <ValidationMessage For="(() => User.LastName)" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label">ایمیل</label>
+                <input @bind-value="@User.Email" name="Email" type="text" class="form-control" placeholder="ایمیل">
+                <ValidationMessage For="(() => User.Email)" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label">شماره تماس</label>
+                <input @bind-value="@User.Phone" name="Phone" type="text" class="form-control" placeholder="شماره تماس">
+                <ValidationMessage For="(() => User.Phone)" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label">کلمه عبور</label>
+                <input @bind-value="@User.Password" name="Password" type="text" class="form-control" placeholder="کلمه عبور">
+                @if (User.Id > 0)
+                {
+                    <i>در صورتی که قصد تغییر کلمه عبور را دارید این فیلد پر کنید</i>
+                }
+                <ValidationMessage For="(() => User.Password)" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label">توضیحات</label>
+                <input @bind-value="@User.Description" name="Description" type="text" class="form-control" placeholder="توضیحات">
+                <ValidationMessage For="(() => User.Description)" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label class="form-label">وضعیت</label>
+                <select class="form-select" @onchange="OnChangeStatus">
+                    @if (User.Status == StatusType.DeActive)
+                    {
+                        <option value="0" selected="">غیر فعال</option>
+                        <option value="1">فعال</option>
+                    }
+                    else
+                    {
+                        <option value="0">غیر فعال</option>
+                        <option value="1" selected="">فعال</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label class="form-label">نقش</label>
+                <select class="form-select" @onchange="OnChangeRole">
+                    @if (User.Role == RoleType.User)
+                    {
+                        <option value="0" selected="">کاربر عادی</option>
+                        <option value="1">مدیر</option>
+                    }
+                    else
+                    {
+                        <option value="0">کاربر عادی</option>
+                        <option value="1" selected="">مدیر</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+           <FileUploader OnConfirmFile="OnConfirmFile" CurrentImage="@User.Image" />
+        </div>
+        <div class="col-md-12 text-start">
+            <button class="btn btn-primary w-100" type="submit">
+                @SubmitTitle
+            </button>
+        </div>
+    </div>
+</EditForm>

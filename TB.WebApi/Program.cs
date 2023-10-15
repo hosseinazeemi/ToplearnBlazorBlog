@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 using TB.Application.Interfaces;
+using TB.Application.Services;
 using TB.Persistence.Context;
 using TB.WebApi.Services;
 
@@ -21,6 +23,20 @@ namespace TB.WebApi
             builder.Services.AddDbContext<AppDbContext>(p => p.UseSqlServer(connection));
             builder.Services.AddScoped<IAppDbContext , AppDbContext>();
             builder.Services.AddScoped<IFileService , FileService>();
+            builder.Services.AddScoped<ICategoryService , CategoryService>();
+            builder.Services.AddScoped<IUserService , UserService>();
+            builder.Services.AddScoped<IContentService , ContentService>();
+
+            string clientUrl = builder.Configuration.GetValue<string>("ClientUrl");
+            builder.Services.AddCors(option =>
+            {
+                option.AddDefaultPolicy(p =>
+                {
+                    p.WithOrigins(clientUrl)
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
+            });
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddHttpContextAccessor();
             var app = builder.Build();
@@ -33,7 +49,8 @@ namespace TB.WebApi
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors();
+            app.UseStaticFiles();
             app.UseAuthorization();
 
 

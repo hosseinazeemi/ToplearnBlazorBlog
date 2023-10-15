@@ -8,7 +8,7 @@ namespace TB.Domain.Enums
 {
     public enum RoleType
     {
-        Admin,
-        User
+       User,
+       Admin
     }
 }

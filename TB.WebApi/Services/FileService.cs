@@ -4,10 +4,10 @@ namespace TB.WebApi.Services
 {
     public interface IFileService
     {
-        bool Delete(string fileName, string folderName);
+        bool Delete(string fileName, string folderName = "");
         string Save(FileDto file, string folderName);
     }
-    public class FileService:IFileService
+    public class FileService : IFileService
     {
         private readonly IWebHostEnvironment _env;
         private readonly IHttpContextAccessor _httpContext;
@@ -17,24 +17,32 @@ namespace TB.WebApi.Services
             _httpContext = httpContext;
         }
 
-        public string Save(FileDto file ,string folderName)
+        public string Save(FileDto file, string folderName)
         {
             string fileName = $"{Guid.NewGuid()}.{file.Extension}";
-            string directory = Path.Combine(_env.WebRootPath , folderName);
-            string path = Path.Combine(directory , fileName);
+            string directory = Path.Combine(_env.WebRootPath, folderName);
+            string path = Path.Combine(directory, fileName);
 
             if (!Directory.Exists(directory))
                 Directory.CreateDirectory(directory);
 
-            File.WriteAllBytesAsync(path , file.Bytes).GetAwaiter();
+            File.WriteAllBytesAsync(path, file.Bytes).GetAwaiter();
 
-            return fileName;
+            return Path.Combine(folderName, fileName);
         }
 
-        public bool Delete(string fileName , string folderName)
+        public bool Delete(string fileName, string folderName = "")
         {
             string find = Path.GetFileName(fileName);
-            string address = Path.Combine(_env.WebRootPath , folderName , find);
+            string address = "";
+            if (!string.IsNullOrEmpty(folderName))
+            {
+                address = Path.Combine(_env.WebRootPath, folderName, find);
+            }
+            else
+            {
+                address = Path.Combine(_env.WebRootPath, find);
+            }
 
             if (File.Exists(address))
                 File.Delete(address);
@@ -42,25 +50,25 @@ namespace TB.WebApi.Services
             return true;
         }
 
-        public async Task<string> Save(IFormFile file , string folderName)
+        public async Task<string> Save(IFormFile file, string folderName)
         {
             string fileName = $"{Guid.NewGuid() + Path.GetExtension(file.FileName)}";
-            string directory = Path.Combine(_env.WebRootPath , folderName);
-            string path = Path.Combine(directory , fileName);
+            string directory = Path.Combine(_env.WebRootPath, folderName);
+            string path = Path.Combine(directory, fileName);
 
             if (!Directory.Exists(directory))
                 Directory.CreateDirectory(directory);
 
             if (file.Length > 0)
             {
-                using (Stream fileStream = new FileStream(path , FileMode.Create))
+                using (Stream fileStream = new FileStream(path, FileMode.Create))
                 {
                     await file.CopyToAsync(fileStream);
                 }
             }
             // https :// google.com / images / a.png
             string fullUrl = $"{_httpContext.HttpContext.Request.Scheme}://{_httpContext.HttpContext.Request.Host}/{folderName}/{fileName}";
-           
+
             return fullUrl;
         }
     }
