@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TB.Application.Interfaces;
@@ -78,6 +79,7 @@ namespace TB.WebApi.Controllers
             }
         }
         [HttpPost("delete")]
+        [Authorize(Roles = "Admin")]
         public ResponseDto<bool> Delete([FromBody] int id)
         {
             try

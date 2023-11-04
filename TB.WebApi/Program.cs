@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using System.Text.Json.Serialization;
 using TB.Application.Interfaces;
 using TB.Application.Services;
@@ -28,6 +31,19 @@ namespace TB.WebApi
             builder.Services.AddScoped<IContentService , ContentService>();
             builder.Services.AddScoped<ICommentService , CommentService>();
 
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(op =>
+                {
+                    op.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateLifetime = true , 
+                        ValidateIssuerSigningKey = true ,
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(builder.Configuration.GetValue<string>("JWTKey")))
+                    };
+                });
             string clientUrl = builder.Configuration.GetValue<string>("ClientUrl");
             builder.Services.AddCors(option =>
             {
@@ -52,8 +68,8 @@ namespace TB.WebApi
             app.UseHttpsRedirection();
             app.UseCors();
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 

@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
 using TB.UI;
 using TB.UI.Services;
+using TB.UI.Services.AuthService;
 using TB.UI.Services.Repository;
 using Tewr.Blazor.FileReader;
 
@@ -23,7 +25,15 @@ namespace TB.UI
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IContentService, ContentService>();
             builder.Services.AddScoped<ICommentService, CommentService>();
+            builder.Services.AddScoped<JWTService>();
+            builder.Services.AddScoped<AuthenticationStateProvider, JWTService>(op =>
+                  op.GetRequiredService<JWTService>()
+            );
+            builder.Services.AddScoped<IAuthService, JWTService>(op =>
+                  op.GetRequiredService<JWTService>()
+            );
             builder.Services.AddMudServices();
+            builder.Services.AddAuthorizationCore();
             builder.Services.AddFileReaderService();
             await builder.Build().RunAsync();
         }
