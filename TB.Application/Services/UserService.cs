@@ -102,5 +102,20 @@ namespace TB.Application.Services
             }
 
         }
+
+        public async Task<User> FindByEmail(string email)
+        {
+
+            try
+            {
+                User result = _context.Users.FirstOrDefault(p => p.Email.Equals(email));
+
+                return await Task.FromResult(result);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.StackTrace);
+            }
+        }
     }
 }

@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace TB.UI.Services.AuthService
 {
-    public class JWTService : AuthenticationStateProvider , IAuthService
+    public class JWTService : AuthenticationStateProvider , IJWTAuthService
     {
         private readonly IJSRuntime _js;
         private readonly HttpClient _http;

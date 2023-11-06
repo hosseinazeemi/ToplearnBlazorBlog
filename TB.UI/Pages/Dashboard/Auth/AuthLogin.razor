@@ -1,0 +1,48 @@
+﻿@using TB.Shared.Enums
+@page "/auth/login"
+
+<section class="py-4">
+    <div class="container">
+        <div class="row pb-4">
+            <div class="col-12">
+                <h1 class="mb-0 h3">ورود به حساب کاربری</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card border">
+                    <div class="card-body">
+                        <EditForm Model="@login" OnValidSubmit="Login">
+                            <DataAnnotationsValidator />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">ایمیل</label>
+                                        <input @bind-value="@login.Email" name="Email" type="text" class="form-control" placeholder="ایمیل">
+                                        <ValidationMessage For="(() => login.Email)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">پسورد</label>
+                                        <input @bind-value="@login.Password" name="Password" type="text" class="form-control" placeholder="پسورد">
+                                        <ValidationMessage For="(() => login.Password)" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 text-start">
+                                    <button class="btn btn-primary w-100" type="submit">
+                                        ورود
+                                    </button>
+                                </div>
+                            </div>
+                        </EditForm>
+                        <MudOverlay Visible="@showSpinner" LightBackground="true" Absolute="true">
+                            <MudProgressCircular Color="Color.Primary" Size="Size.Small" Indeterminate="true" />
+                        </MudOverlay>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

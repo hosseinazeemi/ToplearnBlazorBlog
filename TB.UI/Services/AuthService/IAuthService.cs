@@ -1,6 +1,6 @@
 ﻿namespace TB.UI.Services.AuthService
 {
-    public interface IAuthService
+    public interface IJWTAuthService
     {
         Task Login(string token);
         Task Logout();

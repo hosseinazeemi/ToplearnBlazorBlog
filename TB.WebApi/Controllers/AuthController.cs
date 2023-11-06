@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using TB.Application.Interfaces;
+using TB.Domain.Models;
 using TB.Shared.Dto.Global;
 using TB.Shared.Dto.User;
+using TB.WebApi.Helper;
 
 namespace TB.WebApi.Controllers
 {
@@ -14,33 +18,35 @@ namespace TB.WebApi.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IConfiguration _config;
-        public AuthController(IConfiguration config)
+        private readonly IUserService _userService;
+        private readonly IMapper _mapper;
+        public AuthController(IConfiguration config,IUserService userService,IMapper mapper)
         {
             _config = config;
+            _userService = userService;
+            _mapper = mapper;
         }
 
+        [HttpPost("login")]
         public ResponseDto<TokenDto> Login([FromBody] LoginDto data)
         {
-            // db
-
-            UserDto user = new UserDto
+            var user = _userService.FindByEmail(data.Email).GetAwaiter().GetResult();
+            TokenDto token;
+            if (user != null && HashPassword.Verify(data.Password , user.Password))
             {
-                Id = 100,
-                Name = "ali",
-                LastName = "rezaee",
-                Email = "ali@gmail.com",
-                Password = "yyyyyy",
-                Phone = "09120002222",
-                Image = "",
-                Role = Shared.Enums.RoleType.Admin,
-                Status = Shared.Enums.StatusType.Active,
-                CreatedAt = DateTime.Now,
-                Description = ""
-            };
+                var userData = _mapper.Map<User, UserDto>(user);
+                token = GenerateJWTToken(userData);
+                return new ResponseDto<TokenDto>(true, "شما با موفقیت وارد شدید", token);
+            }
+            else
+            {
+                token = new TokenDto
+                {
+                    Token = HashPassword.Generate("123456")
+                };
+                return new ResponseDto<TokenDto>(false, "اطلاعات وارد شده صحیح نیست", token);
 
-            TokenDto token = GenerateJWTToken(user);
-
-            return new ResponseDto<TokenDto>(true , "success" , token);
+            }
         }
 
         private TokenDto GenerateJWTToken(UserDto user)
@@ -57,7 +63,7 @@ namespace TB.WebApi.Controllers
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetValue<string>("JWTKey")));
 
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.Sha256);
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var expireDate = DateTime.UtcNow.AddMinutes(120);
 

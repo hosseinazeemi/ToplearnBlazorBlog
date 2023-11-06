@@ -22,4 +22,12 @@ namespace TB.Shared.Enums
         Blog,
         News
     }
+    public enum StatusCodeType
+    {
+        Ok = 200 ,
+        UnAuthorized = 401,
+        Forbidden = 403,
+        NotFound = 404,
+        ServerError = 503
+    }
 }

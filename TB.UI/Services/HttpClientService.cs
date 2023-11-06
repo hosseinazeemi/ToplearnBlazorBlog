@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Text;
 using TB.Shared.Dto.Global;
+using TB.Shared.Enums;
 
 namespace TB.UI.Services
 {
@@ -20,7 +21,8 @@ namespace TB.UI.Services
         public async Task<ResponseDto<TResult>> GetAsync<TResult>(string url)
         {
             var response = await _httpClient.GetAsync(url);
-            if (response.IsSuccessStatusCode)
+
+            if (CheckStatusCode((int)response.StatusCode))
             {
                 var result = response.Content.ReadAsStringAsync().Result;
                 var deserialize = JsonConvert.DeserializeObject<ResponseDto<TResult>>(result);
@@ -29,6 +31,20 @@ namespace TB.UI.Services
                     return deserialize;
                 }
             }
+
+            //else
+            //{
+            //    throw new HttpRequestException("خطا", null, response.StatusCode);
+            //}
+            //try
+            //{
+                
+            //}
+            //catch (Exception e)
+            //{
+
+            //    throw;
+            //}
             return new ResponseDto<TResult>(false, "سیستم با خطا مواجه شد", default(TResult));
         }
         public async Task<ResponseDto<TResult>> PostAsync<TResult, TData>(string url, TData data)
@@ -37,7 +53,7 @@ namespace TB.UI.Services
             var stringContent = new StringContent(serializeData, Encoding.UTF8, "application/json");
 
             var response = await _httpClient.PostAsync(url, stringContent);
-            if (response.IsSuccessStatusCode)
+            if (CheckStatusCode((int)response.StatusCode))
             {
                 var result = response.Content.ReadAsStringAsync().Result;
                 var deserialize = JsonConvert.DeserializeObject<ResponseDto<TResult>>(result, _jsonSerializerSetting);
@@ -47,6 +63,30 @@ namespace TB.UI.Services
                 }
             }
             return new ResponseDto<TResult>(false, "سیستم با خطا مواجه شد", default(TResult));
+        }
+
+        private bool CheckStatusCode(int statusCode)
+        {
+            if (statusCode == (int)StatusCodeType.Ok)
+                return true;
+
+            return false;
+            //switch (statusCode)
+            //{
+            //    case (int)StatusCodeType.Ok:
+            //        return true;
+            //        break;
+            //    case (int)StatusCodeType.UnAuthorized:
+            //        break;
+            //    case (int)StatusCodeType.Forbidden:
+            //        break;
+            //    case (int)StatusCodeType.NotFound:
+            //        break;
+            //    case (int)StatusCodeType.ServerError:
+            //        break;
+            //    default:
+            //        break;
+            //}
         }
     }
 }

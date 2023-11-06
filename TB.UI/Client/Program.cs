@@ -25,11 +25,12 @@ namespace TB.UI
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IContentService, ContentService>();
             builder.Services.AddScoped<ICommentService, CommentService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<JWTService>();
             builder.Services.AddScoped<AuthenticationStateProvider, JWTService>(op =>
                   op.GetRequiredService<JWTService>()
             );
-            builder.Services.AddScoped<IAuthService, JWTService>(op =>
+            builder.Services.AddScoped<IJWTAuthService, JWTService>(op =>
                   op.GetRequiredService<JWTService>()
             );
             builder.Services.AddMudServices();
