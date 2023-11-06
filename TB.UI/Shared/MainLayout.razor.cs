@@ -15,7 +15,9 @@ namespace TB.UI.Shared
         {
             if (firstRender)
             {
+                await Task.Delay(300);
                 await Js.InvokeVoidAsync("LoadFunctions");
+                StateHasChanged();
             }
             await base.OnAfterRenderAsync(firstRender);
         }
