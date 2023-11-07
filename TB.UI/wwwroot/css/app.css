@@ -1,3 +1,10 @@
 ﻿.ck-content{
     min-height:130px!important;
 }
+
+.validation-message {
+    font-size: 12px;
+    padding: 4px 6px;
+    color: #df0e0e;
+    font-weight: normal;
+}

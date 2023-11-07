@@ -250,7 +250,7 @@ function LoadFunctions() {
                         var scTop = window.pageYOffset || document.documentElement.scrollTop;
                         if (scTop >= 400) {
                             stickySpace.addClass('active');
-                            e.select("#sticky-space.active").style.height = stickyHeight + 'px';
+                            //e.select("#sticky-space.active").style.height = 50 + 'px';
                             stickyNav.addClass('navbar-sticky-on');
                         } else {
                             stickySpace.removeClass('active');
