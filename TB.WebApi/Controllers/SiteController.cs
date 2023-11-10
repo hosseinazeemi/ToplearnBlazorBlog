@@ -45,5 +45,32 @@ namespace TB.WebApi.Controllers
                 throw;
             }
         }
+
+        [HttpGet("getIndexData")]
+        public ResponseDto<SiteIndexDataDto> GetIndexData()
+        {
+            SiteIndexDataDto siteIndexData = new SiteIndexDataDto();
+            
+            try
+            {
+                var todayNews = _service.GetTodayNews();
+                siteIndexData.TodayNews = _mapper.Map<List<Content>, List<TodayNewsDto>>(todayNews);
+
+                var lastBanner = _service.GetLastNewsBanner();
+                siteIndexData.GetLastNewsBanner = _mapper.Map<Content, ContentItemDto>(lastBanner);
+
+                var lastNews = _service.GetLastNews();
+                siteIndexData.LastNews = _mapper.Map<List<Content>, List<ContentItemDto>>(lastNews);
+
+                var specialCategories = _service.GetSpecialCategories();
+                siteIndexData.SpecialCategories = _mapper.Map<List<Category>, List<SiteCategoryDto>>(specialCategories);
+
+                return new ResponseDto<SiteIndexDataDto>(true , "دریافت با موفقیت انجام شد" , siteIndexData);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

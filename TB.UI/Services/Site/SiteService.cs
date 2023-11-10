@@ -16,10 +16,15 @@ namespace TB.UI.Services.Site
         {
             return await _http.GetAsync<SiteDataDto>($"{baseUrl}/getSiteData");
         }
+        public async Task<ResponseDto<SiteIndexDataDto>> GetIndexData()
+        {
+            return await _http.GetAsync<SiteIndexDataDto>($"{baseUrl}/getIndexData");
+        }
     }
 
     public interface ISiteService
     {
+        Task<ResponseDto<SiteIndexDataDto>> GetIndexData();
         Task<ResponseDto<SiteDataDto>> GetSiteData();
     }
 }
