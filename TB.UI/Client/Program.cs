@@ -6,6 +6,7 @@ using TB.UI;
 using TB.UI.Services;
 using TB.UI.Services.AuthService;
 using TB.UI.Services.Repository;
+using TB.UI.Services.Site;
 using Tewr.Blazor.FileReader;
 
 namespace TB.UI
@@ -26,6 +27,7 @@ namespace TB.UI
             builder.Services.AddScoped<IContentService, ContentService>();
             builder.Services.AddScoped<ICommentService, CommentService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<ISiteService, SiteService>();
             builder.Services.AddScoped<JWTService>();
             builder.Services.AddScoped<AuthenticationStateProvider, JWTService>(op =>
                   op.GetRequiredService<JWTService>()

@@ -30,6 +30,7 @@ namespace TB.WebApi
             builder.Services.AddScoped<IUserService , UserService>();
             builder.Services.AddScoped<IContentService , ContentService>();
             builder.Services.AddScoped<ICommentService , CommentService>();
+            builder.Services.AddScoped<ISiteService , SiteService>();
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(op =>

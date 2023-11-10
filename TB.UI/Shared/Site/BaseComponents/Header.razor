@@ -1,209 +1,206 @@
-﻿    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu">
-        <div class="offcanvas-header justify-content-end">
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+﻿@inject IConfiguration _config
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu">
+    <div class="offcanvas-header justify-content-end">
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column pt-0">
+        <div>
+            <img class="light-mode-item my-3" src="assets/images/logo.svg" alt="logo">
+            <img class="dark-mode-item my-3" src="assets/images/logo-light.svg" alt="logo">
+            <p>موضوع وبلاگ، اخبار و مجله نسل بعدی برای شما برای شروع به اشتراک گذاری داستان های خود از امروز! </p>
+            <ul class="nav d-block flex-column my-4">
+                <li class="nav-item h5">
+                    <a class="nav-link" href="index.html">خانه</a>
+                </li>
+                <li class="nav-item h5">
+                    <a class="nav-link" href="about-us.html">درباره ما</a>
+                </li>
+                <li class="nav-item h5">
+                    <a class="nav-link" href="post-grid.html">خواندنی ها</a>
+                </li>
+                <li class="nav-item h5">
+                    <a class="nav-link" href="contact-us.html">تماس با ما</a>
+                </li>
+            </ul>
+            <div class="bg-primary bg-opacity-10 p-4 mb-4 text-center w-100 rounded">
+                <span>پیشنهاد Blogzine</span>
+                <h3>پکیج های خبرنامه</h3>
+                <p>گزارش بینش مورد اعتماد در سراسر جهان را دریافت کنید. امروز عضو شوید</p>
+                <a href="#" class="btn btn-warning">خرید و فعالسازی</a>
+            </div>
         </div>
-        <div class="offcanvas-body d-flex flex-column pt-0">
-            <div>
-                <img class="light-mode-item my-3" src="assets/images/logo.svg" alt="logo">
-                <img class="dark-mode-item my-3" src="assets/images/logo-light.svg" alt="logo">
-                <p>موضوع وبلاگ، اخبار و مجله نسل بعدی برای شما برای شروع به اشتراک گذاری داستان های خود از امروز! </p>
-                <ul class="nav d-block flex-column my-4">
-                    <li class="nav-item h5">
-                        <a class="nav-link" href="index.html">خانه</a>
-                        </li>
-                    <li class="nav-item h5">
-                        <a class="nav-link" href="about-us.html">درباره ما</a>
-                    </li>
-                    <li class="nav-item h5">
-                        <a class="nav-link" href="post-grid.html">خواندنی ها</a>
-                    </li>
-                    <li class="nav-item h5">
-                        <a class="nav-link" href="contact-us.html">تماس با ما</a>
-                    </li>
-                </ul>
-                <div class="bg-primary bg-opacity-10 p-4 mb-4 text-center w-100 rounded">
-                    <span>پیشنهاد Blogzine</span>
-                    <h3>پکیج های خبرنامه</h3>
-                    <p>گزارش بینش مورد اعتماد در سراسر جهان را دریافت کنید. امروز عضو شوید</p>
-                    <a href="#" class="btn btn-warning">خرید و فعالسازی</a>
-                </div>
-            </div>
-            <div class="mt-auto pb-3">
-                <p class="text-body mb-2 fw-bold">ایران، تهران</p>
-                <address class="mb-0">خیابان سعادت آباد، خیابان سرو غربی، مجتمع پارس</address>
-                <p class="mb-2">شماره تماس: <a href="#" class="text-body"><u>469-537-2410</u> (مشاوره رایگان)</a> </p>
-                <a href="#" class="text-body d-block">support@example.com</a>
-            </div>
+        <div class="mt-auto pb-3">
+            <p class="text-body mb-2 fw-bold">ایران، تهران</p>
+            <address class="mb-0">خیابان سعادت آباد، خیابان سرو غربی، مجتمع پارس</address>
+            <p class="mb-2">شماره تماس: <a href="#" class="text-body"><u>469-537-2410</u> (مشاوره رایگان)</a> </p>
+            <a href="#" class="text-body d-block">support@example.com</a>
         </div>
     </div>
-    <header class="navbar-light navbar-sticky header-static">
-        <div class="navbar-top d-none d-lg-block small">
-            <div class="container">
-                <div class="d-md-flex justify-content-between align-items-center my-2">
+</div>
+<header class="navbar-light navbar-sticky header-static">
+    <div class="navbar-top d-none d-lg-block small">
+        <div class="container">
+            <div class="d-md-flex justify-content-between align-items-center my-2">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link ps-0" href="about-us.html">درباره ما</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="signin.html">ورود / ثبت نام</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <div class="btn-group me-2" role="group" aria-label="font size changer">
+                        <input type="radio" class="btn-check" name="fntradio" id="font-sm">
+                        <label class="btn btn-xs btn-outline-primary mb-0" for="font-sm">A-</label>
+
+                        <input type="radio" class="btn-check" name="fntradio" id="font-default" checked>
+                        <label class="btn btn-xs btn-outline-primary mb-0" for="font-default">A</label>
+
+                        <input type="radio" class="btn-check" name="fntradio" id="font-lg">
+                        <label class="btn btn-xs btn-outline-primary mb-0" for="font-lg">A+</label>
+                    </div>
+
+                    <div class="modeswitch" id="darkModeSwitch">
+                        <div class="switch"></div>
+                    </div>
+
                     <ul class="nav">
                         <li class="nav-item">
-                            <a class="nav-link ps-0" href="about-us.html">درباره ما</a>
+                            <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-facebook-square"></i></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="signin.html">ورود / ثبت نام</a>
+                            <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-twitter-square"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-linkedin"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-youtube-square"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ps-2 pe-0 fs-5" href="#"><i class="fab fa-vimeo"></i></a>
                         </li>
                     </ul>
-                    <div class="d-flex align-items-center">
-                        <div class="btn-group me-2" role="group" aria-label="font size changer">
-                            <input type="radio" class="btn-check" name="fntradio" id="font-sm">
-                            <label class="btn btn-xs btn-outline-primary mb-0" for="font-sm">A-</label>
+                </div>
+            </div>
+            <div class="border-bottom border-2 border-primary opacity-1"></div>
+        </div>
+    </div>
 
-                            <input type="radio" class="btn-check" name="fntradio" id="font-default" checked>
-                            <label class="btn btn-xs btn-outline-primary mb-0" for="font-default">A</label>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img class="navbar-brand-item light-mode-item" src="assets/images/logo.svg" alt="logo">
+                <img class="navbar-brand-item dark-mode-item" src="assets/images/logo-light.svg" alt="logo">
+            </a>
+            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="text-body h6 d-none d-sm-inline-block">منو</span>
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                            <input type="radio" class="btn-check" name="fntradio" id="font-lg">
-                            <label class="btn btn-xs btn-outline-primary mb-0" for="font-lg">A+</label>
-                        </div>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav navbar-nav-scroll">
 
-                        <div class="modeswitch" id="darkModeSwitch">
-                            <div class="switch"></div>
-                        </div>
-
-                        <ul class="nav">
-                            <li class="nav-item">
-                                <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-facebook-square"></i></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-twitter-square"></i></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-linkedin"></i></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-youtube-square"></i></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link ps-2 pe-0 fs-5" href="#"><i class="fab fa-vimeo"></i></a>
-                            </li>
+                    <li class="nav-item"> <a class="nav-link" href="/">خانه</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="homeMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">دسته بندی</a>
+                        <ul class="dropdown-menu" aria-labelledby="homeMenu">
+                            @if (Data.Categories != null)
+                            {
+                                @foreach (var item in Data.Categories)
+                                {
+                                    <li> <a class="dropdown-item" href="@("/categories/" + item.Id)">@item.Name</a></li>
+                                }
+                            }
                         </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="pagesMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">مقاله ها</a>
+                        <ul class="dropdown-menu" aria-labelledby="pagesMenu">
+                            @if (Data.Blogs != null)
+                            {
+                                @foreach (var item in Data.Blogs)
+                                {
+                                    <li> <a class="dropdown-item" href="/blogs/@item.Id">@item.Id</a></li>
+                                }
+                            }
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown dropdown-fullwidth">
+                        <a class="nav-link dropdown-toggle" href="#" id="megaMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> اخرین اخبار</a>
+                        <div class="dropdown-menu" aria-labelledby="megaMenu">
+                            <div class="container">
+                                <div class="row g-4 p-3 flex-fill">
+                                    @if (Data.News != null)
+                                    {
+                                        @foreach (var item in Data.News)
+                                        {
+                                            <div class="col-sm-6 col-lg-3">
+                                                <div class="card bg-transparent">
+                                                    <img class="card-img rounded" src="@(Path.Combine(_config.GetValue<string>("ApiBaseUrl") , item.Image))" alt="@item.Title">
+                                                    <div class="card-body px-0 pt-3">
+                                                        <h6 class="card-title mb-0"><a href="/news/@item.Id" class="btn-link text-reset">@item.Title</a></h6>
+                                                        <ul class="nav nav-divider align-items-center text-uppercase small mt-2">
+                                                            <li class="nav-item">
+                                                                @if (item.User != null)
+                                                                {
+                                                                    <a href="#" class="text-reset btn-link">
+                                                                        @string.Concat(item.User.Name , " " , item.User.LastName)
+                                                                    </a>
+                                                                }else
+                                                                {
+                                                                    <span>بدون کاربر</span>
+                                                                }
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                @item.CreatedAt
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+
+                                </div>
+                                @* <div class="row px-3">
+                                <div class="col-12">
+                                <ul class="list-inline mt-3">
+                                <li class="list-inline-item">برچسب ها:</li>
+                                <li class="list-inline-item"><a href="#" class="btn btn-sm btn-primary-soft">گردشگری</a></li>
+                                <li class="list-inline-item"><a href="#" class="btn btn-sm btn-warning-soft">کسب و کار</a></li>
+                                <li class="list-inline-item"><a href="#" class="btn btn-sm btn-success-soft">فناوری</a></li>
+                                <li class="list-inline-item"><a href="#" class="btn btn-sm btn-danger-soft">گجت</a></li>
+                                <li class="list-inline-item"><a href="#" class="btn btn-sm btn-info-soft">سبک زندگی</a></li>
+                                <li class="list-inline-item"><a href="#" class="btn btn-sm btn-primary-soft">واکسن</a></li>
+                                <li class="list-inline-item"><a href="#" class="btn btn-sm btn-success-soft">ورزشی</a></li>
+                                <li class="list-inline-item"><a href="#" class="btn btn-sm btn-danger-soft">کووید</a></li>
+                                <li class="list-inline-item"><a href="#" class="btn btn-sm btn-info-soft">پوشاک</a></li>
+                                </ul>
+                                </div>
+                                </div> *@
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav flex-nowrap align-items-center">
+                <div class="nav-item dropdown dropdown-toggle-icon-none nav-search">
+                    <a class="nav-link dropdown-toggle" role="button" href="#" id="navSearch" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-search fs-4"> </i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end shadow rounded p-2" aria-labelledby="navSearch">
+                        <form class="input-group">
+                            <input class="form-control border-success" type="search" placeholder="جستجو" aria-label="Search">
+                            <button class="btn btn-success m-0" type="submit">جستجو</button>
+                        </form>
                     </div>
                 </div>
-                <div class="border-bottom border-2 border-primary opacity-1"></div>
             </div>
         </div>
-
-        <nav class="navbar navbar-expand-lg">
-            <div class="container">
-                <a class="navbar-brand" href="index.html">
-                    <img class="navbar-brand-item light-mode-item" src="assets/images/logo.svg" alt="logo">
-                    <img class="navbar-brand-item dark-mode-item" src="assets/images/logo-light.svg" alt="logo">
-                </a>
-                <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="text-body h6 d-none d-sm-inline-block">منو</span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav navbar-nav-scroll">
-
-                        <li class="nav-item"> <a class="nav-link" href="/">خانه</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="homeMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">دسته بندی</a>
-                            <ul class="dropdown-menu" aria-labelledby="homeMenu">
-                                <li> <a class="dropdown-item" href="index.html">ورزشی</a></li>
-                                <li> <a class="dropdown-item" href="index-lazy.html">اقتصادی</a></li>
-                                <li> <a class="dropdown-item" href="index-3.html">فرهنگی</a></li>
-                                <li> <a class="dropdown-item" href="index-4.html">مذهبی</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="pagesMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">مقاله ها</a>
-                            <ul class="dropdown-menu" aria-labelledby="pagesMenu">
-                                <li> <a class="dropdown-item" href="/">مقاله شماره 1</a></li>
-                                <li> <a class="dropdown-item" href="/">مقاله شماره 2</a></li>
-                                <li> <a class="dropdown-item" href="/">مقاله شماره 3</a></li>
-                                <li> <a class="dropdown-item" href="/">مقاله شماره 4</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item dropdown dropdown-fullwidth">
-                            <a class="nav-link dropdown-toggle" href="#" id="megaMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> اخرین اخبار</a>
-                            <div class="dropdown-menu" aria-labelledby="megaMenu">
-                                <div class="container">
-                                    <div class="row g-4 p-3 flex-fill">
-                                        <div class="col-sm-6 col-lg-4">
-                                            <div class="card bg-transparent">
-                                                <img class="card-img rounded" src="assets/images/blog/16by9/small/01.jpg" alt="Card image">
-                                                <div class="card-body px-0 pt-3">
-                                                    <h6 class="card-title mb-0"><a href="#" class="btn-link text-reset">7 دیدگاه اشتباهاتی که همه در سفر مرتکب می شوند؟</a></h6>
-                                                    <ul class="nav nav-divider align-items-center text-uppercase small mt-2">
-                                                        <li class="nav-item">
-                                                            <a href="#" class="text-reset btn-link">الناز حسینی</a>
-                                                        </li>
-                                                        <li class="nav-item">15 بهمن، 1400</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-lg-4">
-                                            <div class="card bg-transparent">
-                                                <img class="card-img rounded" src="assets/images/blog/16by9/small/02.jpg" alt="Card image">
-                                                <div class="card-body px-0 pt-3">
-                                                    <h6 class="card-title mb-0"><a href="#" class="btn-link text-reset">12 بدترین نوع حساب های تجاری که در توییتر دنبال می کنید!</a></h6>
-                                                    <ul class="nav nav-divider align-items-center text-uppercase small mt-2">
-                                                        <li class="nav-item">
-                                                            <a href="#" class="text-reset btn-link">محمد کریمی</a>
-                                                        </li>
-                                                        <li class="nav-item">2 آبان، 1400</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-lg-4">
-                                            <div class="card bg-transparent">
-                                                <img class="card-img rounded" src="assets/images/blog/16by9/small/03.jpg" alt="Card image">
-                                                <div class="card-body px-0 pt-3">
-                                                    <h6 class="card-title mb-0"><a href="#" class="btn-link text-reset">آیا این آگهی ها واقعی هستند؟ معاوضه لوازم شخصی با غذا!</a></h6>
-                                                    <ul class="nav nav-divider align-items-center text-uppercase small mt-2">
-                                                        <li class="nav-item">
-                                                            <a href="#" class="text-reset btn-link">مهدی شجاعی</a>
-                                                        </li>
-                                                        <li class="nav-item">14 مرداد، 1400</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                   @* <div class="row px-3">
-                                        <div class="col-12">
-                                            <ul class="list-inline mt-3">
-                                                <li class="list-inline-item">برچسب ها:</li>
-                                                <li class="list-inline-item"><a href="#" class="btn btn-sm btn-primary-soft">گردشگری</a></li>
-                                                <li class="list-inline-item"><a href="#" class="btn btn-sm btn-warning-soft">کسب و کار</a></li>
-                                                <li class="list-inline-item"><a href="#" class="btn btn-sm btn-success-soft">فناوری</a></li>
-                                                <li class="list-inline-item"><a href="#" class="btn btn-sm btn-danger-soft">گجت</a></li>
-                                                <li class="list-inline-item"><a href="#" class="btn btn-sm btn-info-soft">سبک زندگی</a></li>
-                                                <li class="list-inline-item"><a href="#" class="btn btn-sm btn-primary-soft">واکسن</a></li>
-                                                <li class="list-inline-item"><a href="#" class="btn btn-sm btn-success-soft">ورزشی</a></li>
-                                                <li class="list-inline-item"><a href="#" class="btn btn-sm btn-danger-soft">کووید</a></li>
-                                                <li class="list-inline-item"><a href="#" class="btn btn-sm btn-info-soft">پوشاک</a></li>
-                                            </ul>
-                                        </div>
-                                    </div> *@
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="nav flex-nowrap align-items-center">
-                    <div class="nav-item dropdown dropdown-toggle-icon-none nav-search">
-                        <a class="nav-link dropdown-toggle" role="button" href="#" id="navSearch" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-search fs-4"> </i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end shadow rounded p-2" aria-labelledby="navSearch">
-                            <form class="input-group">
-                                <input class="form-control border-success" type="search" placeholder="جستجو" aria-label="Search">
-                                <button class="btn btn-success m-0" type="submit">جستجو</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
+    </nav>
+</header>

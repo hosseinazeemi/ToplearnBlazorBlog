@@ -1,12 +1,19 @@
 ﻿@using TB.UI.Shared.Site.BaseComponents
 @inherits LayoutComponentBase
 
-<Header />
+@if (SiteData != null)
+{
+    <Header Data="SiteData" />
+}
 <main>
     @Body
 </main>
-<Footer />
 
-<MudThemeProvider/>
-<MudDialogProvider/>
-<MudSnackbarProvider/>
+@if (SiteData != null)
+{
+    <Footer Data="SiteData" />
+}
+
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
