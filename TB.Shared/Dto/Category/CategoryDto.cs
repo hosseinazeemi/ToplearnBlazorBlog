@@ -13,6 +13,7 @@ namespace TB.Shared.Dto.Category
         public int Id { get; set; }
         [Required(ErrorMessage = "وارد کردن نام اجباری است")]
         public string Name { get; set; }
+        public string? Image { get; set; }
         public StatusType Status { get; set; }
         public bool IsSpecial { get; set; }
     }

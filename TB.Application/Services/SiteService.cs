@@ -154,10 +154,12 @@ namespace TB.Application.Services
                 var data = _context.Categories
                     .Where(p => p.Status == StatusType.Active && p.IsSpecial)
                     .OrderByDescending(p => p.Id)
+                    .Take(10)
                     .Select(p => new Category
                     {
                         Id = p.Id,
                         Name = p.Name,
+                        Image = p.Image
 
                     }).ToList();
 

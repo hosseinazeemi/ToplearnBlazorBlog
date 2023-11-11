@@ -11,6 +11,7 @@ namespace TB.Domain.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string? Image { get; set; }
         public StatusType Status { get; set; }
         public bool IsSpecial { get; set; }
     }
