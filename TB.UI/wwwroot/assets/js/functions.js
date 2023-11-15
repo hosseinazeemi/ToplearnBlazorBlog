@@ -1,5 +1,4 @@
 function LoadFunctions() {
-    "use strict";
     !function () {
 
         window.Element.prototype.removeClass = function () {

@@ -1,17 +1,31 @@
 ﻿@using TB.UI.Shared.Site.BaseComponents
 @inherits LayoutComponentBase
 
-@if (SiteData != null)
-{
-    <Header Data="SiteData" />
-}
-<main>
-    @Body
-</main>
 
-@if (SiteData != null)
+@if (showSite)
 {
-    <Footer Data="SiteData" />
+    @if (SiteData != null)
+    {
+        <Header Data="SiteData" />
+    }
+    <main>
+        @Body
+    </main>
+
+    @if (SiteData != null)
+    {
+        <Footer Data="SiteData" />
+    }
+}
+else
+{
+    <div class="container">
+        <div class="position-relative text-center pt-5">
+            <div class="spinner-border text-primary mt-5" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
 }
 
 <MudThemeProvider />

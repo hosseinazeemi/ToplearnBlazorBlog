@@ -24,18 +24,12 @@ namespace TB.UI.Shared
             {
                 SiteData = data.Data;
             }
-            await Js.InvokeVoidAsync("LoadFunctions");
             showSite = true;
             StateHasChanged();
-            await base.OnInitializedAsync();
-        }
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            if (firstRender)
-            {
-                StateHasChanged();
-            }
-            await base.OnAfterRenderAsync(firstRender);
+            await Js.InvokeVoidAsync("LoadFunctions");
+            //await Js.InvokeVoidAsync("LoadTinySlider");
+            //await Task.Delay(1500);
+            StateHasChanged();
         }
     }
 }

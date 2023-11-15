@@ -22,10 +22,19 @@
     <link rel="stylesheet" type="text/css" href="/css/app.css">
     <link id="style-switch" rel="stylesheet" type="text/css" href="/assets/css/style-rtl.css">
     <link href="TB.UI.styles.css" rel="stylesheet" />
+    <script src="/assets/js/jquery.min.js"></script>
 </head>
 
 <body>
-    <div id="app">Loading...</div>
+    <div id="app">
+        <div class="container">
+            <div class="position-relative text-center pt-5">
+                <div class="spinner-border text-primary mt-5" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="blazor-error-ui">
         An unhandled error has occurred.
@@ -37,10 +46,9 @@
     <script src="/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/vendor/tiny-slider/tiny-slider-rtl.js"></script>
     <script src="/assets/vendor/sticky-js/sticky.min.js"></script>
-    <script src="/assets/vendor/plyr/plyr.js"></script>
-    <script src="/assets/js/functions.js"></script>
     <script src="/js/ckeditor/ckeditor.js"></script>
     <script src="/js/ckeditor/CKEditorInterop.js"></script>
+    <script src="/assets/js/functions.js"></script>
 </body>
 
 </html>
