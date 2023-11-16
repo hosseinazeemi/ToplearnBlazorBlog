@@ -65,6 +65,11 @@ namespace TB.WebApi.Controllers
                 var specialCategories = _service.GetSpecialCategories();
                 siteIndexData.SpecialCategories = _mapper.Map<List<Category>, List<SiteCategoryDto>>(specialCategories);
 
+                var lastBlogs = _service.GetLastBlogs();
+                siteIndexData.LastBlogs = _mapper.Map<List<Content>, List<ContentItemDto>>(lastBlogs);
+
+                var popularNews = _service.GetPopularNews();
+                siteIndexData.PopularNews = _mapper.Map<List<Content>, List<ContentItemDto>>(popularNews);
                 return new ResponseDto<SiteIndexDataDto>(true , "دریافت با موفقیت انجام شد" , siteIndexData);
             }
             catch (Exception)

@@ -10,10 +10,12 @@ namespace TB.Application.Interfaces
 {
     public interface ISiteService
     {
+        List<Content> GetLastBlogs();
         List<Content>? GetLastNews();
         Content? GetLastNewsBanner();
         List<Category> GetMenuCategories();
         List<Content> GetMenuContents(ContentType type);
+        List<Content> GetPopularNews();
         List<Category> GetSpecialCategories();
         List<Content> GetTodayNews();
     }

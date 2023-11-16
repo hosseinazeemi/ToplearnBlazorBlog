@@ -170,5 +170,63 @@ namespace TB.Application.Services
                 throw;
             }
         }
+        public List<Content> GetPopularNews()
+        {
+            try
+            {
+                List<Content>? data = _context.Contents
+                    .Where(p => p.Status == StatusType.Active && p.Type == ContentType.News)
+                    .Include(p => p.User)
+                    .Include(p => p.Category)
+                    .OrderByDescending(p => p.Like)
+                    .Select(p => new Content
+                    {
+                        Id = p.Id,
+                        Title = p.Title,
+                        Description = p.Description,
+                        Image = p.Image,
+                        CreatedAt = p.CreatedAt,
+                        User = p.User,
+                        Category = p.Category,
+                        UserId = p.UserId,
+                        CategoryId = p.CategoryId
+                    }).ToList();
+
+                return data;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public List<Content> GetLastBlogs()
+        {
+            try
+            {
+                List<Content>? data = _context.Contents
+                    .Where(p => p.Status == StatusType.Active && p.Type == ContentType.Blog)
+                    .Include(p => p.User)
+                    .Include(p => p.Category)
+                    .OrderByDescending(p => p.Id)
+                    .Select(p => new Content
+                    {
+                        Id = p.Id,
+                        Title = p.Title,
+                        Description = p.Description,
+                        Image = p.Image,
+                        CreatedAt = p.CreatedAt,
+                        User = p.User,
+                        Category = p.Category,
+                        UserId = p.UserId,
+                        CategoryId = p.CategoryId
+                    }).ToList();
+
+                return data;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

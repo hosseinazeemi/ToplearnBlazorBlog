@@ -12,5 +12,7 @@ namespace TB.Shared.Dto.Site
         public ContentItemDto? GetLastNewsBanner { get; set; }
         public List<ContentItemDto>? LastNews { get; set; }
         public List<SiteCategoryDto>? SpecialCategories { get; set; }
+        public List<ContentItemDto>? LastBlogs { get; set; }
+        public List<ContentItemDto>? PopularNews { get; set; }
     }
 }

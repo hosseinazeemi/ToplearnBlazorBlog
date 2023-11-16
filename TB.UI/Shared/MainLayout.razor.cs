@@ -24,11 +24,10 @@ namespace TB.UI.Shared
             {
                 SiteData = data.Data;
             }
+            await Task.Delay(2000);
             showSite = true;
             StateHasChanged();
             await Js.InvokeVoidAsync("LoadFunctions");
-            //await Js.InvokeVoidAsync("LoadTinySlider");
-            //await Task.Delay(1500);
             StateHasChanged();
         }
     }
