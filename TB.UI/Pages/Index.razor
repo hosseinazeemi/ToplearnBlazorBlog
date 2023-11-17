@@ -1,7 +1,6 @@
 ﻿@page "/"
 @using TB.UI.Helper
 @using TB.UI.Shared.Dashboard
-
 @inject IConfiguration _config
 
 <PageTitle>اولین دمو سایت</PageTitle>
@@ -48,7 +47,7 @@
             @if (IndexData != null && IndexData.GetLastNewsBanner != null)
             {
                 <div class="col-lg-6">
-                    <div class="card card-overlay-bottom card-grid-lg card-bg-scale" style="background-image:url(@(Path.Combine(_config.GetValue<string>("ApiBaseUrl") , IndexData.GetLastNewsBanner.Image))); background-position: center left; background-size: cover;">
+                    <div class="card card-overlay-bottom card-grid-lg card-bg-scale" style="background-image:url('@(Path.Combine(_config.GetValue<string>("ApiBaseUrl") , IndexData.GetLastNewsBanner.Image))'); background-position: center left; background-size: cover;">
                         <span class="card-featured" title=""><i class="fas fa-star"></i></span>
                         <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
                             <div class="w-100 mt-auto">
@@ -195,7 +194,7 @@
                                     </div>
                                     <div class="card-body px-0 pt-3">
                                         <h4 class="card-title mt-2"><a href="/news/@item.Id" class="btn-link text-reset">@item.Title</a></h4>
-                                        <p class="card-text">@item?.Description?.RemoveHtmlTag()</p>
+                                        <p class="card-text">@(item?.Description?.RemoveHtmlTag()?.Substring(0 , item.Description.Length > 80 ? 80 : item.Description.Length))</p>
                                         <ul class="nav nav-divider align-items-center d-none d-sm-inline-block">
                                             @if (item.User != null)
                                             {

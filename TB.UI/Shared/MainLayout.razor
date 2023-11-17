@@ -1,32 +1,40 @@
 ﻿@using TB.UI.Shared.Site.BaseComponents
 @inherits LayoutComponentBase
 
-
-@if (showSite)
+@if (!showSite)
 {
-    @if (SiteData != null)
-    {
-        <Header Data="SiteData" />
-    }
-    <main>
-        @Body
-    </main>
-
-    @if (SiteData != null)
-    {
-        <Footer Data="SiteData" />
-    }
-}
-else
-{
-    <div class="container">
-        <div class="position-relative text-center pt-5">
+   <div class="loader text-center pt-5">
             <div class="spinner-border text-primary mt-5" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
         </div>
-    </div>
 }
+@if (SiteData != null)
+{
+    <Header Data="SiteData" />
+}
+<main>
+    @Body
+</main>
+
+@if (SiteData != null)
+{
+    <Footer Data="SiteData" />
+}
+
+<style>
+    .loader{
+        position:fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        background:white;
+        height:100%;
+        width:100%;
+        z-index:999;
+    }
+</style>
 
 <MudThemeProvider />
 <MudDialogProvider />

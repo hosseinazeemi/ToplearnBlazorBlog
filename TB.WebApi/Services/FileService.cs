@@ -28,7 +28,7 @@ namespace TB.WebApi.Services
 
             File.WriteAllBytesAsync(path, file.Bytes).GetAwaiter();
 
-            return Path.Combine(folderName, fileName);
+            return $"{folderName}/{fileName}";
         }
 
         public bool Delete(string fileName, string folderName = "")

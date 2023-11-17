@@ -15,7 +15,6 @@ namespace TB.UI.Shared
         public SiteDataDto SiteData { get; set; }
 
         private bool showSite = false;
-
         protected override async Task OnInitializedAsync()
         {
             ResponseDto<SiteDataDto> data = await _service.GetSiteData();
@@ -24,11 +23,9 @@ namespace TB.UI.Shared
             {
                 SiteData = data.Data;
             }
-            await Task.Delay(2000);
-            showSite = true;
-            StateHasChanged();
+            await Task.Delay(1500);
             await Js.InvokeVoidAsync("LoadFunctions");
-            StateHasChanged();
+            showSite = true;
         }
     }
 }
