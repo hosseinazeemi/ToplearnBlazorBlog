@@ -1,0 +1,69 @@
+﻿@page "/dashboard/setting"
+@using TB.Shared.Enums
+@using TB.UI.Helper
+@using TB.UI.Shared.Dashboard
+@using TB.UI.Shared.Dashboard.Global
+@layout DashboardLayout
+
+<section class="py-4">
+    <div class="container">
+        <div class="row pb-4">
+            <div class="col-12">
+                <h1 class="mb-0 h3">تنظیمات</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card border">
+                    <div class="card-body">
+                        <EditForm Model="@banner" OnValidSubmit="Submit">
+                            <DataAnnotationsValidator />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">جایگاه بنر</label>
+                                        <select class="form-select" @bind="banner.Type">
+                                            @foreach (var item in Enum.GetValues<BannerType>())
+                                            {
+                                                <option value="@item.ToString()">@item.GetDisplayName()</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">عنوان</label>
+                                        <input @bind-value="@banner.Title" name="Title" type="text" class="form-control">
+                                        <ValidationMessage For="(() => banner.Title)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">لینک</label>
+                                        <input @bind-value="@banner.Link" name="Link" type="text" class="form-control">
+                                        <ValidationMessage For="(() => banner.Link)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">انتخاب فایل</label>
+                                        <FileUploader OnConfirmFile="ConfirmFile" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 text-start">
+                                    <button class="btn btn-primary w-100" type="submit">
+                                        ذخیره
+                                    </button>
+                                </div>
+                            </div>
+                        </EditForm>
+                        <MudOverlay Visible="@showSpinner" LightBackground="true" Absolute="true">
+                            <MudProgressCircular Color="Color.Primary" Size="Size.Small" Indeterminate="true" />
+                        </MudOverlay>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

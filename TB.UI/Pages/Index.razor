@@ -6,8 +6,6 @@
 <PageTitle>اولین دمو سایت</PageTitle>
 
 
-<!-- =======================
-      Trending START -->
 @if (IndexData != null && IndexData.TodayNews != null)
 {
     <section class="py-2">
@@ -59,7 +57,7 @@
                                 }
 
                                 <h2 class="text-white h1"><a href="post-single-4.html" class="btn-link stretched-link text-reset">@IndexData.GetLastNewsBanner.Title</a></h2>
-                                <p class="text-white">@(IndexData?.GetLastNewsBanner?.Description?.RemoveHtmlTag())</p>
+                                <p class="text-white">@(IndexData?.GetLastNewsBanner?.Description?.RemoveHtmlTag()?.SubStringDescription())</p>
                                 <ul class="nav nav-divider text-white-force align-items-center d-none d-sm-inline-block">
                                     @if (IndexData?.GetLastNewsBanner?.User != null)
                                     {
@@ -75,7 +73,9 @@
                                         </li>
 
                                     }
-                                    <li class="nav-item">@IndexData.GetLastNewsBanner.CreatedAt</li>
+                                    @if(IndexData.GetLastNewsBanner.CreatedAt != null){
+                                    <li class="nav-item">@(((DateTime)IndexData.GetLastNewsBanner.CreatedAt).GregorianToPersian())</li>
+                                    }
                                 </ul>
                             </div>
                         </div>
@@ -194,7 +194,7 @@
                                     </div>
                                     <div class="card-body px-0 pt-3">
                                         <h4 class="card-title mt-2"><a href="/news/@item.Id" class="btn-link text-reset">@item.Title</a></h4>
-                                        <p class="card-text">@(item?.Description?.RemoveHtmlTag()?.Substring(0 , item.Description.Length > 80 ? 80 : item.Description.Length))</p>
+                                        <p class="card-text"> @(item?.Description?.RemoveHtmlTag()?.SubStringDescription())</p>
                                         <ul class="nav nav-divider align-items-center d-none d-sm-inline-block">
                                             @if (item.User != null)
                                             {
@@ -209,8 +209,10 @@
                                                     </div>
                                                 </li>
                                             }
-
-                                            <li class="nav-item">@item.CreatedAt</li>
+                                            @if (item.CreatedAt != null)
+                                            {
+                                            <li class="nav-item">@(((DateTime)item.CreatedAt).GregorianToPersian())</li>
+                                            }
                                         </ul>
                                     </div>
                                 </div>
@@ -256,7 +258,11 @@
                                             </div>
                                             <div class="col-8">
                                                 <h6><a href="/news/@item.Id" class="btn-link stretched-link text-reset">@item.Title</a></h6>
-                                                <div class="small mt-1">@item.CreatedAt</div>
+                                                @if (item.CreatedAt != null)
+                                                {
+                                                <div class="small mt-1">@(((DateTime)item.CreatedAt).GregorianToPersian())</div>
+                                                    
+                                                }
                                             </div>
                                         </div>
                                     }
@@ -330,8 +336,11 @@
                                                     </div>
                                                 </li>
                                             }
-
-                                            <li class="nav-item">@item.CreatedAt</li>
+                                            @if(item.CreatedAt != null)
+                                            {
+                                            <li class="nav-item">@(((DateTime)item.CreatedAt).GregorianToPersian())</li>
+                                                
+                                            }
                                         </ul>
                                     </div>
                                 </div>

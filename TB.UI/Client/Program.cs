@@ -28,6 +28,7 @@ namespace TB.UI
             builder.Services.AddScoped<ICommentService, CommentService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<ISiteService, SiteService>();
+            builder.Services.AddScoped<ISettingService, SettingService>();
             builder.Services.AddScoped<JWTService>();
             builder.Services.AddScoped<AuthenticationStateProvider, JWTService>(op =>
                   op.GetRequiredService<JWTService>()
