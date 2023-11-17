@@ -67,21 +67,36 @@
                     </div>
 
                     <ul class="nav">
-                        <li class="nav-item">
-                            <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-facebook-square"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-twitter-square"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-linkedin"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-youtube-square"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link ps-2 pe-0 fs-5" href="#"><i class="fab fa-vimeo"></i></a>
-                        </li>
+                        @if (Data?.Setting?.Whatsapp != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link px-2 fs-5" href="@Data?.Setting?.Whatsapp"><i class="fab fa-whatsapp"></i></a>
+                            </li>
+                        }
+                        @if (Data?.Setting?.Instagram != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link px-2 fs-5" href="@Data.Setting.Instagram"><i class="fab fa-instagram"></i></a>
+                            </li>
+                        }
+                        @if (Data?.Setting?.Telegram != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link px-2 fs-5" href="@Data.Setting.Telegram"><i class="fab fa-telegram"></i></a>
+                            </li>
+                        }
+                        @if (Data?.Setting?.Twitter != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link px-2 fs-5" href="@Data.Setting.Twitter"><i class="fab fa-twitter"></i></a>
+                            </li>
+                        }
+                        @if (Data?.Setting?.Youtube != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link px-2 fs-5" href="@Data.Setting.Youtube"><i class="fab fa-youtube"></i></a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -151,7 +166,8 @@
                                                                     <a href="#" class="text-reset btn-link">
                                                                         @string.Concat(item.User.Name , " " , item.User.LastName)
                                                                     </a>
-                                                                }else
+                                                                }
+                                                                else
                                                                 {
                                                                     <span>بدون کاربر</span>
                                                                 }

@@ -7,11 +7,6 @@
 
 <section class="py-4">
     <div class="container">
-        <div class="row pb-4">
-            <div class="col-12">
-                <h1 class="mb-0 h3">تنظیمات</h1>
-            </div>
-        </div>
         <div class="row">
             <div class="col-12">
                 <div class="card border">
@@ -19,6 +14,9 @@
                         <EditForm Model="@banner" OnValidSubmit="Submit">
                             <DataAnnotationsValidator />
                             <div class="row">
+                                <div class="col-md-12">
+                                     <h1 class="mb-0 h3">تنظیمات بنر های سایت</h1>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label">جایگاه بنر</label>
@@ -46,7 +44,6 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label">انتخاب فایل</label>
                                         <FileUploader OnConfirmFile="ConfirmFile" />
                                     </div>
                                 </div>
@@ -59,6 +56,77 @@
                             </div>
                         </EditForm>
                         <MudOverlay Visible="@showSpinner" LightBackground="true" Absolute="true">
+                            <MudProgressCircular Color="Color.Primary" Size="Size.Small" Indeterminate="true" />
+                        </MudOverlay>
+                    </div>
+                </div>
+            </div>
+
+               <div class="col-12">
+                <div class="card border">
+                    <div class="card-body">
+                        <EditForm Model="@setting" OnValidSubmit="SubmitSetting">
+                            <DataAnnotationsValidator />
+                            <div class="row">
+                                <div class="col-md-12">
+                                     <h1 class="mb-0 h3">تنظیمات کلی سایت</h1>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">لینک واتساپ</label>
+                                        <input @bind-value="@setting.Whatsapp" name="Whatsapp" type="text" class="form-control">
+                                        <ValidationMessage For="(() => setting.Whatsapp)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">لینک تلگرام</label>
+                                        <input @bind-value="@setting.Telegram" name="Telegram" type="text" class="form-control">
+                                        <ValidationMessage For="(() => setting.Telegram)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">لینک اینستاگرام</label>
+                                        <input @bind-value="@setting.Instagram" name="Instagram" type="text" class="form-control">
+                                        <ValidationMessage For="(() => setting.Instagram)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">لینک توئیتر</label>
+                                        <input @bind-value="@setting.Twitter" name="Twitter" type="text" class="form-control">
+                                        <ValidationMessage For="(() => setting.Twitter)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">لینک یوتیوب</label>
+                                        <input @bind-value="@setting.Youtube" name="Youtube" type="text" class="form-control">
+                                        <ValidationMessage For="(() => setting.Youtube)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">توضیحات</label>
+                                        <input @bind-value="@setting.Description" name="Description" type="text" class="form-control">
+                                        <ValidationMessage For="(() => setting.Description)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <FileUploader OnConfirmFile="ConfirmLogoFile" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 text-start">
+                                    <button class="btn btn-primary w-100" type="submit">
+                                        ذخیره
+                                    </button>
+                                </div>
+                            </div>
+                        </EditForm>
+                        <MudOverlay Visible="@showSettingSpinner" LightBackground="true" Absolute="true">
                             <MudProgressCircular Color="Color.Primary" Size="Size.Small" Indeterminate="true" />
                         </MudOverlay>
                     </div>

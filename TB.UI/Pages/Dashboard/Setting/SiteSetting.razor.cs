@@ -10,7 +10,9 @@ namespace TB.UI.Pages.Dashboard.Setting
     {
         #region Properties
         private BannerDto banner;
+        private SettingItemDto setting;
         private bool showSpinner;
+        private bool showSettingSpinner;
         [Inject]
         private ISnackbar _snackbar { get; set; }
         [Inject]
@@ -21,7 +23,34 @@ namespace TB.UI.Pages.Dashboard.Setting
         protected override Task OnInitializedAsync()
         {
             banner = new BannerDto();
+            setting = new SettingItemDto();
+            
             return base.OnInitializedAsync();
+        }
+        private async Task SubmitSetting()
+        {
+            showSettingSpinner = true;
+            StateHasChanged();
+
+            ResponseDto<bool> response = await _service.UpdateSetting(setting);
+
+            if (response.Status)
+            {
+                var result = response.Data;
+                if (result)
+                {
+                    _snackbar.Add(response.Message, Severity.Success);
+                }
+                else
+                {
+                    _snackbar.Add(response.Message, Severity.Error);
+                }
+            }
+
+            await Task.Delay(1000);
+
+            showSettingSpinner = false;
+            StateHasChanged();
         }
         private async Task Submit()
         {
@@ -51,6 +80,10 @@ namespace TB.UI.Pages.Dashboard.Setting
         private void ConfirmFile(FileDto file)
         {
             banner.File = file;
+        }
+        private void ConfirmLogoFile(FileDto file)
+        {
+            setting.LogoFile = file;
         }
         #endregion
     }

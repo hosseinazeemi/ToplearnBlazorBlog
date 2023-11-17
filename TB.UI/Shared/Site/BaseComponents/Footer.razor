@@ -1,12 +1,24 @@
-﻿<footer class="bg-dark pt-5">
+﻿@inject IConfiguration _config
+
+<footer class="bg-dark pt-5">
     <div class="container">
         <div class="row pt-3 pb-4">
-            <div class="col-md-3">
-                <img src="assets/images/logo-footer.svg" alt="footer logo">
-            </div>
-            <div class="col-md-5">
-                <p class="text-muted">این قالب مبتنی بر بوت استرپ 5 برای همه انواع سایت های مجله خبری و وبلاگ مناسب است.</p>
-            </div>
+            @if (Data?.Setting?.Logo != null)
+            {
+                <div class="col-md-3">
+                    <img width="80" src="@(Path.Combine(_config.GetValue<string>("ApiBaseUrl") , Data.Setting.Logo))" alt="سایت خبری">
+                </div>
+            }
+
+            @if (Data?.Setting?.Description != null)
+            {
+                <div class="col-md-5">
+                    <p class="text-muted">
+                        @Data.Setting.Description
+                    </p>
+                </div>
+            }
+
             <div class="col-md-4">
                 <form class="row row-cols-lg-auto g-2 align-items-center justify-content-end">
                     <div class="col-12">
@@ -25,33 +37,27 @@
         <hr>
 
         <div class="row pt-5">
-            <div class="col-md-6 col-lg-4 mb-0">
-                <h5 class="mb-4 text-white">اخبار اخیر</h5>
-                <div class="mb-4 position-relative">
-                    <div><a href="#" class="badge text-bg-danger mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>اقتصاد</a></div>
-                    <a href="post-single-3.html" class="btn-link text-white fw-normal">تقویم آزمون‌های علوم پزشکی</a>
-                    <ul class="nav nav-divider align-items-center small mt-2 text-muted">
-                        <li class="nav-item position-relative">
-                            <div class="nav-link">
-                                با <a href="#" class="stretched-link text-reset btn-link">نازنین لطفی</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">6 مهر، 1400</li>
-                    </ul>
+            @if (Data?.News != null && Data.News.Any())
+            {
+                <div class="col-md-6 col-lg-4 mb-0">
+                    <h5 class="mb-4 text-white">اخبار اخیر</h5>
+                    @foreach (var item in Data.News.Take(2).ToList())
+                    {
+                        <div class="mb-4 position-relative">
+                            <div><a href="#" class="badge text-bg-danger mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>اقتصاد</a></div>
+                            <a href="post-single-3.html" class="btn-link text-white fw-normal">تقویم آزمون‌های علوم پزشکی</a>
+                            <ul class="nav nav-divider align-items-center small mt-2 text-muted">
+                                <li class="nav-item position-relative">
+                                    <div class="nav-link">
+                                        با <a href="#" class="stretched-link text-reset btn-link">نازنین لطفی</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item">6 مهر، 1400</li>
+                            </ul>
+                        </div>
+                    }
                 </div>
-                <div class="mb-4 position-relative">
-                    <div><a href="#" class="badge text-bg-info mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>فرهنگ</a></div>
-                    <a href="post-single-3.html" class="btn-link text-white fw-normal">احتمال آغاز موج هشتم کرونا در کشور</a>
-                    <ul class="nav nav-divider align-items-center small mt-2 text-muted">
-                        <li class="nav-item position-relative">
-                            <div class="nav-link">
-                                با <a href="#" class="stretched-link text-reset btn-link">ادمین</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">29 اسفند، 1400</li>
-                    </ul>
-                </div>
-            </div>
+            }
 
             <div class="col-md-6 col-lg-4 mb-0">
                 <h5 class="mb-4 text-white">لینک های مفید</h5>
@@ -70,11 +76,30 @@
             <div class="col-sm-6 col-lg-4 mb-0">
                 <h5 class="mb-4 text-white">شبکه های اجتمایی</h5>
                 <ul class="nav flex-column text-primary-hover">
-                    <li class="nav-item"><a class="nav-link pt-0" href="#"><i class="fab fa-whatsapp fa-fw me-2"></i>واتساپ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fab fa-youtube fa-fw me-2"></i>یوتیوب</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fab fa-twitter fa-fw me-2"></i>توئیتر</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fab fa-instagram fa-fw me-2"></i>اینستاگرام</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fab fa-telegram fa-fw me-2"></i>تلگرام</a></li>
+                    @if (Data?.Setting?.Whatsapp != null)
+                    {
+                        <li class="nav-item"><a class="nav-link pt-0" href="@Data.Setting.Whatsapp"><i class="fab fa-whatsapp fa-fw me-2"></i>واتساپ</a></li>
+
+                    }
+                    @if (Data?.Setting?.Instagram != null)
+                    {
+                        <li class="nav-item"><a class="nav-link" href="@Data.Setting.Instagram"><i class="fab fa-instagram fa-fw me-2"></i>اینستاگرام</a></li>
+
+                    }
+                    @if (Data?.Setting?.Telegram != null)
+                    {
+                        <li class="nav-item"><a class="nav-link" href="@Data.Setting.Telegram"><i class="fab fa-telegram fa-fw me-2"></i>تلگرام</a></li>
+
+                    }
+                    @if (Data?.Setting?.Twitter != null)
+                    {
+                        <li class="nav-item"><a class="nav-link" href="@Data.Setting.Twitter"><i class="fab fa-twitter fa-fw me-2"></i>توئیتر</a></li>
+
+                    }
+                    @if (Data?.Setting?.Youtube != null)
+                    {
+                        <li class="nav-item"><a class="nav-link" href="@Data.Setting.Youtube"><i class="fab fa-youtube fa-fw me-2"></i>یوتیوب</a></li>
+                    }
                 </ul>
             </div>
         </div>

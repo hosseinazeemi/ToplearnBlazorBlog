@@ -16,10 +16,15 @@ namespace TB.UI.Services.Repository
         {
             return await _http.PostAsync<bool, BannerDto>($"{baseUrl}/banner", data);
         }
+        public async Task<ResponseDto<bool>> UpdateSetting(SettingItemDto data)
+        {
+            return await _http.PostAsync<bool, SettingItemDto>($"{baseUrl}/updateSetting", data);
+        }
     }
 
     public interface ISettingService
     {
         Task<ResponseDto<bool>> SetBanner(BannerDto data);
+        Task<ResponseDto<bool>> UpdateSetting(SettingItemDto data);
     }
 }

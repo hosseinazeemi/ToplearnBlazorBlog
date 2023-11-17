@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using TB.Application.Interfaces;
+using TB.Domain.Enums;
 using TB.Domain.Models;
 using TB.Shared.Dto.Global;
 using TB.Shared.Dto.Setting;
@@ -43,6 +44,45 @@ namespace TB.WebApi.Controllers
                 Setting setting = new Setting
                 {
                     Key = banner.Type,
+                    Value = JsonConvert.SerializeObject(obj)
+                };
+                bool result = _service.UpdateSetting(setting);
+
+                return new ResponseDto<bool>(true , "موفقیت آمیز" , result);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        [HttpPost("updateSetting")]
+        public ResponseDto<bool> UpdateSetting(SettingItemDto data)
+        {
+            try
+            {
+                if (data.LogoFile != null)
+                {
+                    data.Logo = _fileService.Save(data.LogoFile, nameof(TB.Domain.Models.Setting));
+                }
+
+                object obj = new
+                {
+                    Instagram = data.Instagram,
+                    Whatsapp = data.Whatsapp,
+                    Telegram = data.Telegram,
+                    Twitter = data.Twitter,
+                    Youtube = data.Youtube,
+                    Description = data.Description,
+                    Logo = data.Logo,
+                    Rule = data.Rule,
+                    About = data.About
+                };
+
+                Setting setting = new Setting
+                {
+                    Key = SettingKeyType.Other.ToString(),
                     Value = JsonConvert.SerializeObject(obj)
                 };
                 bool result = _service.UpdateSetting(setting);
