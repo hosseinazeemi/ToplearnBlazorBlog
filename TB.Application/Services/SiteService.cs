@@ -228,5 +228,19 @@ namespace TB.Application.Services
                 throw;
             }
         }
+        public Setting GetSetting(string key)
+        {
+            try
+            {
+                Setting item = _context.Setting.FirstOrDefault(p => p.Key.Equals(key));
+
+                return item;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

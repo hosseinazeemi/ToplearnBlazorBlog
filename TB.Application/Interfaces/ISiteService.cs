@@ -16,6 +16,7 @@ namespace TB.Application.Interfaces
         List<Category> GetMenuCategories();
         List<Content> GetMenuContents(ContentType type);
         List<Content> GetPopularNews();
+        Setting GetSetting(string key);
         List<Category> GetSpecialCategories();
         List<Content> GetTodayNews();
     }

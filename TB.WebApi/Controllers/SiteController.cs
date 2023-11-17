@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using TB.Application.Interfaces;
 using TB.Domain.Enums;
 using TB.Domain.Models;
 using TB.Shared.Dto.Global;
+using TB.Shared.Dto.Setting;
 using TB.Shared.Dto.Site;
+using TB.Shared.Enums;
 
 namespace TB.WebApi.Controllers
 {
@@ -28,10 +31,10 @@ namespace TB.WebApi.Controllers
 
             try
             {
-                var newsList = _service.GetMenuContents(ContentType.News);
+                var newsList = _service.GetMenuContents(TB.Domain.Enums.ContentType.News);
                 data.News = _mapper.Map<List<Content>, List<ContentMenuDto>>(newsList);
 
-                var blogs = _service.GetMenuContents(ContentType.Blog);
+                var blogs = _service.GetMenuContents(TB.Domain.Enums.ContentType.Blog);
                 data.Blogs = _mapper.Map<List<Content>, List<ContentMenuDto>>(blogs);
 
                 var categories = _service.GetMenuCategories();
@@ -70,6 +73,24 @@ namespace TB.WebApi.Controllers
 
                 var popularNews = _service.GetPopularNews();
                 siteIndexData.PopularNews = _mapper.Map<List<Content>, List<ContentItemDto>>(popularNews);
+
+                var mainBanner = _service.GetSetting(BannerType.IndexMainBanner.ToString());
+                if (mainBanner != null)
+                {
+                    siteIndexData.MainBanner = JsonConvert.DeserializeObject<BannerDto>(mainBanner.Value);
+                }
+
+                var leftBanner = _service.GetSetting(BannerType.IndexSmallLeftBanner.ToString());
+                if (leftBanner != null)
+                {
+                    siteIndexData.LeftBanner = JsonConvert.DeserializeObject<BannerDto>(leftBanner.Value);
+                }
+
+                var rightBanner = _service.GetSetting(BannerType.IndexSmallRightBanner.ToString());
+                if (rightBanner != null)
+                {
+                    siteIndexData.RightBanner = JsonConvert.DeserializeObject<BannerDto>(rightBanner.Value);
+                }
                 return new ResponseDto<SiteIndexDataDto>(true , "دریافت با موفقیت انجام شد" , siteIndexData);
             }
             catch (Exception)
