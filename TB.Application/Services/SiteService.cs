@@ -10,7 +10,7 @@ using TB.Domain.Models;
 
 namespace TB.Application.Services
 {
-    public class SiteService:ISiteService
+    public class SiteService : ISiteService
     {
         private IAppDbContext _context;
         public SiteService(IAppDbContext context)
@@ -28,7 +28,7 @@ namespace TB.Application.Services
                     .Include(p => p.User)
                     .Select(p => new Content
                     {
-                        Id = p.Id ,
+                        Id = p.Id,
                         Title = p.Title,
                         Image = p.Image,
                         CreatedAt = p.CreatedAt,
@@ -74,7 +74,7 @@ namespace TB.Application.Services
                     .Where(p => p.Type == ContentType.News && p.Status == StatusType.Active)
                     .Select(p => new Content
                     {
-                        Id = p.Id , 
+                        Id = p.Id,
                         Title = p.Title
                     })
                     .OrderByDescending(p => p.Id)
@@ -239,6 +239,24 @@ namespace TB.Application.Services
             catch (Exception)
             {
 
+                throw;
+            }
+        }
+        public Category GetCategory(int id)
+        {
+            try
+            {
+                var result = _context.Categories
+                    .Where(p => p.Id == id)
+                    .Include(p => p.Contents)
+                    .ThenInclude(x => x.User)
+                    .Include(c => c.Contents)
+                    .ThenInclude(t => t.Comments).FirstOrDefault();
+
+                return result;
+            }
+            catch (Exception)
+            {
                 throw;
             }
         }

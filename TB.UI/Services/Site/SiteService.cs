@@ -20,10 +20,15 @@ namespace TB.UI.Services.Site
         {
             return await _http.GetAsync<SiteIndexDataDto>($"{baseUrl}/getIndexData");
         }
+        public async Task<ResponseDto<CategoryPageDto>> GetCategory(int id)
+        {
+            return await _http.GetAsync<CategoryPageDto>($"{baseUrl}/getCategory?id={id}");
+        }
     }
 
     public interface ISiteService
     {
+        Task<ResponseDto<CategoryPageDto>> GetCategory(int id);
         Task<ResponseDto<SiteIndexDataDto>> GetIndexData();
         Task<ResponseDto<SiteDataDto>> GetSiteData();
     }

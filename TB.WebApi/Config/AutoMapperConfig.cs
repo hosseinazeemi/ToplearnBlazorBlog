@@ -23,9 +23,11 @@ namespace TB.WebApi.Config
             CreateMap<Category, CategoryMenuDto>();
             CreateMap<CommentDto, Comment>();
             CreateMap<Comment, CommentDto>();
+            CreateMap<Comment, CommentItemDto>();
             CreateMap<Content, TodayNewsDto>();
             CreateMap<Content, ContentItemDto>();
             CreateMap<Category, SiteCategoryDto>();
+            CreateMap<Category, CategoryPageDto>();
         }
     }
 }

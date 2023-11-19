@@ -103,5 +103,23 @@ namespace TB.WebApi.Controllers
                 throw;
             }
         }
+
+        [HttpGet("getCategory")]
+        public ResponseDto<CategoryPageDto> GetCategory(int id)
+        {
+            try
+            {
+                var category = _service.GetCategory(id);
+
+                CategoryPageDto item = _mapper.Map<Category, CategoryPageDto>(category);
+
+                return new ResponseDto<CategoryPageDto>(true  , "دریافت شد" , item);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
