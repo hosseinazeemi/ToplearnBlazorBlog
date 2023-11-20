@@ -23,9 +23,18 @@ namespace TB.UI.Shared
             {
                 SiteData = data.Data;
             }
+        }
+        private async Task Loading()
+        {
             await Task.Delay(1500);
-            await Js.InvokeVoidAsync("LoadFunctions");
             showSite = true;
+            await Js.InvokeVoidAsync("LoadFunctions");
+            StateHasChanged();
+        }
+        protected override async Task OnParametersSetAsync()
+        {
+            await Loading();
+            await base.OnParametersSetAsync();
         }
     }
 }
