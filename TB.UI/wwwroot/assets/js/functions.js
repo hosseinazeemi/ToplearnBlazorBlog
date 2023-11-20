@@ -61,7 +61,7 @@ function Load() {
                 e.stickyFooter(),
                 e.darkMode(),
                 e.zooming(),
-            e.overlayScrollbars(),
+            e.overlayScrollbars()
         },
         isVariableDefined: function (el) {
             return typeof !!el && (el) != 'undefined' && el != null;
