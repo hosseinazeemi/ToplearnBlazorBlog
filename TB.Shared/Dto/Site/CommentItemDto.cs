@@ -17,5 +17,6 @@ namespace TB.Shared.Dto.Site
         public int UserId { get; set; }
         public StatusType Status { get; set; }
         public DateTime? CreatedAt { get; set; }
+        public SiteUserDto? User { get; set; }
     }
 }

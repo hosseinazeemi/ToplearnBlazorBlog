@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TB.Shared.Dto.User;
 using TB.Shared.Enums;
 
 namespace TB.Shared.Dto.Comment
@@ -17,5 +18,6 @@ namespace TB.Shared.Dto.Comment
         public int UserId { get; set; }
         public StatusType Status { get; set; }
         public DateTime? CreatedAt { get; set; }
+        public UserDto? User { get; set; }
     }
 }

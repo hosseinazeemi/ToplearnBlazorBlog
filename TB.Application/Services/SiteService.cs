@@ -17,7 +17,6 @@ namespace TB.Application.Services
         {
             _context = context;
         }
-
         public List<Content> GetMenuContents(ContentType type)
         {
             try
@@ -65,7 +64,6 @@ namespace TB.Application.Services
                 throw;
             }
         }
-
         public List<Content> GetTodayNews()
         {
             try
@@ -88,7 +86,6 @@ namespace TB.Application.Services
                 throw;
             }
         }
-
         public Content? GetLastNewsBanner()
         {
             try
@@ -247,11 +244,30 @@ namespace TB.Application.Services
             try
             {
                 var result = _context.Categories
-                    .Where(p => p.Id == id)
+                    .Where(p => p.Id == id && p.Status == StatusType.Active)
                     .Include(p => p.Contents)
                     .ThenInclude(x => x.User)
                     .Include(c => c.Contents)
                     .ThenInclude(t => t.Comments).FirstOrDefault();
+
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public Content GetContent(int id)
+        {
+            try
+            {
+                var result = _context.Contents
+                    .Where(p => p.Id == id && p.Status == StatusType.Active)
+                    .Include(p => p.User)
+                    .Include(p => p.Category)
+                    .Include(p => p.Comments)
+                    .ThenInclude(p => p.User)
+                    .FirstOrDefault();
 
                 return result;
             }

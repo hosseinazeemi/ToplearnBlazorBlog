@@ -1,6 +1,7 @@
 ﻿@page "/news/{Id:int}"
 @page "/blogs/{Id:int}"
-
+@using TB.UI.Helper
+@inject IConfiguration _config
 
 @if (ContentDto != null)
 {
@@ -13,24 +14,32 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="card bg-dark-overlay-5 overflow-hidden card-bg-scale h-400 text-center" style="background-image:url(assets/images/blog/16by9/06.jpg); background-position: center left; background-size: cover;">
+                    <div class="card bg-dark-overlay-5 overflow-hidden card-bg-scale h-400 text-center" style="background-image:url('@(string.IsNullOrEmpty(ContentDto.Image) ? "/assets/images/nopic.jpg" : Path.Combine(_config.GetValue<string>("ApiBaseUrl") , ContentDto.Image))'); background-position: center left; background-size: cover;">
                         <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
                             <div class="w-100 my-auto">
-                                <a href="#" class="badge text-bg-danger mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>تکنولوژی</a>
-                                <h2 class="text-white display-5">کریسمس چه فرقی با سال نوی میلادی دارد؟</h2>
+                                @if (ContentDto.Category != null)
+                                {
+                                    <a href="/categories/@ContentDto.Category.Id" class="badge text-bg-danger mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>@ContentDto.Category.Name</a>
+                                }
+                                <h2 class="text-white display-5">@ContentDto.Title</h2>
                                 <ul class="nav nav-divider text-white-force align-items-center justify-content-center">
-                                    <li class="nav-item">
-                                        <div class="nav-link">
-                                            <div class="d-flex align-items-center text-white position-relative">
-                                                <div class="avatar avatar-sm">
-                                                    <img class="avatar-img rounded-circle" src="assets/images/avatar/11.jpg" alt="avatar">
+                                    @if (ContentDto.User != null)
+                                    {
+                                        <li class="nav-item">
+                                            <div class="nav-link">
+                                                <div class="d-flex align-items-center text-white position-relative">
+                                                    <div class="avatar avatar-sm">
+                                                        <img class="avatar-img rounded-circle" src="@(string.IsNullOrEmpty(ContentDto.User?.Image) ? "/assets/images/nopic_user.png" : Path.Combine(_config.GetValue<string>("ApiBaseUrl") , ContentDto.User.Image))" alt="@($"{ContentDto?.User?.Name} {ContentDto?.User?.LastName}")">
+                                                    </div>
+                                                    <span class="ms-3">با <a href="#" class="stretched-link text-reset btn-link">@($"{ContentDto?.User?.Name} {ContentDto?.User?.LastName}")</a></span>
                                                 </div>
-                                                <span class="ms-3">با <a href="#" class="stretched-link text-reset btn-link">مریم حسینی</a></span>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item">15 آبان، 1400</li>
-                                    <li class="nav-item">5 دقیقه زمان مطالعه</li>
+                                        </li>
+                                    }
+                                    @if (ContentDto.CreatedAt != null)
+                                    {
+                                        <li class="nav-item">@(((DateTime)ContentDto.CreatedAt).GregorianToPersian())</li>
+                                    }
                                 </ul>
                             </div>
                         </div>
@@ -44,140 +53,86 @@
         <div class="container position-relative" data-sticky-container>
             <div class="row">
                 <div class="col-lg-12 mb-5">
-                    <p><span class="dropcap bg-dark text-white px-2">I</span> وقتی ثروت‌ های بزرگ به دست برخی مردم می‌افتد در پرتو آن نیرومند می‌شوند و در سایهٔ نیرومندی و ثروت خیال می‌ کنند که می‌توانند در خارج از وطن خود زندگی نمایند و خوشبخت و سرافراز باشند ولی به زودی می‌ فهمند که اشتباه کرده‌ اند و عظمت هر ملتی بر روی خرابه‌ های وطن خودش می‌باشد و بس! مداد رنگی ها مشغول بودند به جز مداد سفید، هیچکس به او کار نمیداد. پیر مردی هر روز تو محله می دید پسر کی با کفش های پاره و پای برهنه با توپ پلاستیکی فوتبال بازی می کند...</p>
+                    @if (!string.IsNullOrWhiteSpace(ContentDto.Description))
+                    {
+                        @((MarkupString)ContentDto.Description)
+                    }
 
-                    <p>
-                        پسرک کفشا رو پوشید و خوشحال رو به پیر مرد کرد و گفت: شما خدایید؟! پیر مرد لبش را گزید و گفت نه! پسرک گفت پس دوست خدایی، چون من دیشب فقط به خدا گفتم كه کفش ندارم… <b>به یاد هم باشیم شاید فردا ما هم در کنار هم نباشیم...!</b> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
-                        <samp>این متن به عنوان خروجی نمونه از یک برنامه کامپیوتری در نظر گرفته می شود.</samp>  این یک نوشته آزمایشی است که به طراحان و برنامه نویسان کمک میکند تا این عزیزان با بهره گیری از این نوشته تستی و آزمایشی بتوانند نمونه تکمیل شده از پروژه و طرح خودشان را به کارفرما نمایش دهند، استفاده از این متن تستی می تواند سرعت پیشرفت پروژه را افزایش دهد، و طراحان به جای تایپ و نگارش متن می توانند تنها با یک کپی و پست این متن را در کادرهای مختلف جایگزین نمائید. این نوشته توسط سایت لورم ایپسوم فارسی نگاشته شده است.
-                    </p>
-                    <h3 class="mt-5">رایانش ابری موبایل (MCC)</h3>
-                    <p>
-                        برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. <kbd>cd</kbd> با علاقه فراوان و دلواپسی زیاد به زندگی ادامه می دهیم، همان‌ طور که تا آنجا که ممکن است طولانی‌ تر در یک حباب صابون می‌ دمیم تا بزرگتر شود، گر چه با قطعیتی تمام می‌ دانیم که خواهد ترکید.<br>
-                        برای ویرایش تنظیمات، فشار دهید <kbd><kbd>ctrl</kbd> + <kbd>,</kbd></kbd> کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
-                    </p>
-
-                    <div class="row g-2 my-5">
-                        <div class="col-md-4">
-                            <a href="assets/images/blog/3by4/01.jpg" data-glightbox data-gallery="image-popup">
-                                <img class="rounded" src="assets/images/blog/3by4/01.jpg" alt="Image">
+                    @if (ContentDto.User != null)
+                    {
+                        <div class="d-flex p-2 p-md-4 my-3 bg-primary bg-opacity-10 rounded">
+                            <a href="#">
+                                <div class="avatar avatar-xxl me-2 me-md-4">
+                                    <img class="avatar-img rounded-circle" src="@(string.IsNullOrEmpty(ContentDto.User?.Image) ? "/assets/images/nopic_user.png" : Path.Combine(_config.GetValue<string>("ApiBaseUrl") , ContentDto.User.Image))" alt="@($"{ContentDto?.User?.Name} {ContentDto?.User?.LastName}")">
+                                </div>
                             </a>
-                        </div>
-                    </div>
-                    <p>
-                        این یک نوشته آزمایشی است که به طراحان و برنامه نویسان کمک میکند تا این عزیزان با بهره گیری از این نوشته تستی و آزمایشی بتوانند نمونه تکمیل شده از پروژه و طرح خودشان را به کارفرما نمایش دهند، استفاده از این متن تستی می تواند سرعت پیشرفت پروژه را افزایش دهد، و طراحان به جای تایپ و نگارش متن می توانند تنها با یک کپی و پست این متن را در کادرهای مختلف جایگزین نمائید. این نوشته توسط سایت لورم ایپسوم فارسی نگاشته شده است.
-                    </p>
-
-                    <h3 class="mt-4">شعار مولد در مورد تجارت</h3>
-                    <div class="row mb-4">
-                        <div class="col-md-6">
-                            <p>
-                                نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد.
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <p>کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
-                        </div>
-                    </div>
-
-                    <p>
-                        پیر مردی هر روز تو محله می دید پسر کی با کفش های پاره و پای برهنه با توپ پلاستیکی فوتبال بازی می کند، روزی رفت ی کتانی نو خرید و اومد و به پسرک گفت بیا این کفشا رو بپوش…پسرک کفشا رو پوشید و خوشحال رو به پیر مرد کرد و گفت: شما خدایید؟! پیر مرد لبش را گزید و گفت نه! پسرک گفت پس دوست خدایی، چون من دیشب فقط به خدا گفتم كه کفش ندارم…
-                    </p>
-                    <p>
-                        این یک نوشته آزمایشی است که به طراحان و برنامه نویسان کمک میکند تا این عزیزان با بهره گیری از این نوشته تستی و آزمایشی بتوانند نمونه تکمیل شده از پروژه و طرح خودشان را به کارفرما نمایش دهند، استفاده از این متن تستی می تواند سرعت پیشرفت پروژه را افزایش دهد، و طراحان به جای تایپ و نگارش متن می توانند تنها با یک کپی و پست این متن را در کادرهای مختلف جایگزین نمائید. این نوشته توسط سایت لورم ایپسوم فارسی نگاشته شده است.
-                    </p>
-
-
-                    <div class="d-flex p-2 p-md-4 my-3 bg-primary bg-opacity-10 rounded">
-                        <a href="#">
-                            <div class="avatar avatar-xxl me-2 me-md-4">
-                                <img class="avatar-img rounded-circle" src="assets/images/avatar/12.jpg" alt="avatar">
-                            </div>
-                        </a>
-                        <div>
-                            <div class="d-sm-flex align-items-center justify-content-between">
-                                <div>
-                                    <h4 class="m-0"><a href="#" class="text-reset">مریم حسینی</a></h4>
-                                    <small>روزنامه نگار سایت Blogzine</small>
-                                </div>
-                                <a href="#" class="btn btn-xs btn-primary-soft">مشاهده اخبار</a>
-                            </div>
-                            <p class="my-2">مریم حسینی سردبیر ارشد این وبلاگ است و همچنین اخبار فوری مستقر در لندن را گزارش می دهد. او از سال 2015 درباره دولت، عدالت کیفری و نقش پول در سیاست نوشته است.</p>
-                            <ul class="nav">
-                                <li class="nav-item">
-                                    <a class="nav-link ps-0 pe-2 fs-5" href="#"><i class="fab fa-facebook-square"></i></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-twitter-square"></i></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-linkedin"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="mt-5">
-                        <h3>5 دیدگاه</h3>
-                        <div class="my-4 d-flex">
-                            <img class="avatar avatar-md rounded-circle float-start me-3" src="assets/images/avatar/01.jpg" alt="avatar">
                             <div>
-                                <div class="mb-2">
-                                    <h5 class="m-0">شادی اسدی</h5>
-                                    <span class="me-3 small">21 خرداد، 1400 در 3:00 بعد از ظهر </span>
-                                    <a href="#" class="text-body fw-normal">پاسخ</a>
+                                <div class="d-sm-flex align-items-center justify-content-between">
+                                    <div>
+                                        <h4 class="m-0"><a href="#" class="text-reset">@($"{ContentDto?.User?.Name} {ContentDto?.User?.LastName}")</a></h4>
+                                    </div>
+                                    <a href="/search?user_id=@(ContentDto.User.Id)" class="btn btn-xs btn-primary-soft">مشاهده اخبار</a>
                                 </div>
-                                <p>سایهٔ نیرومندی و ثروت خیال می‌ کنند که می‌توانند در خارج از وطن خود زندگی نمایند و خوشبخت و سرافراز باشند ولی به زودی می‌ فهمند که اشتباه کرده‌ اند و عظمت هر ملتی بر روی خرابه‌ های وطن خودش می‌باشد و بس!</p>
-                            </div>
-                        </div>
-                        <div class="my-4 d-flex ps-2 ps-md-3">
-                            <img class="avatar avatar-md rounded-circle float-start me-3" src="assets/images/avatar/02.jpg" alt="avatar">
-                            <div>
-                                <div class="mb-2">
-                                    <h5 class="m-0">علی قنبرزاده</h5>
-                                    <span class="me-3 small">21 خرداد، 1400 در 3:00 بعد از ظهر </span>
-                                    <a href="#" class="text-body fw-normal">پاسخ</a>
-                                </div>
-                                <p>وقتی ثروت‌ های بزرگ به دست برخی مردم می‌افتد در پرتو آن نیرومند می‌شوند و در سایهٔ نیرومندی و ثروت خیال می‌ کنند که می‌توانند در خارج از وطن خود زندگی نمایند و خوشبخت و سرافراز باشند.</p>
-                            </div>
-                        </div>
-                        <!-- Comment children level 3 -->
-                        <div class="my-4 d-flex ps-3 ps-md-5">
-                            <img class="avatar avatar-md rounded-circle float-start me-3" src="assets/images/avatar/01.jpg" alt="avatar">
-                            <div>
-                                <div class="mb-2">
-                                    <h5 class="m-0">مونا شاه حسینی</h5>
-                                    <span class="me-3 small">21 خرداد، 1400 در 3:00 بعد از ظهر</span>
-                                    <a href="#" class="text-body fw-normal">پاسخ</a>
-                                </div>
-                                <p>در نهایت این مرگ است که باید پیروز شود، زیرا از هنگام تولد بخشی از سرنوشت ما شده و فقط مدت کوتاهی پیش از بلعیدن طعمه اش، با آن بازی می کند.</p>
-                            </div>
-                        </div>
-                        <!-- Comment level 2 -->
-                        <div class="my-4 d-flex ps-2 ps-md-3">
-                            <img class="avatar avatar-md rounded-circle float-start me-3" src="assets/images/avatar/03.jpg" alt="avatar">
-                            <div>
-                                <div class="mb-2">
-                                    <h5 class="m-0">مهرداد نوری</h5>
-                                    <span class="me-3 small">21 خرداد، 1400 در 3:00 بعد از ظهر</span>
-                                    <a href="#" class="text-body fw-normal">پاسخ</a>
-                                </div>
-                                <p>همان‌ طور که تا آنجا که ممکن است طولانی‌ تر در یک حباب صابون می‌ دمیم تا بزرگتر شود!</p>
-                            </div>
-                        </div>
-                        <!-- Comment level 1 -->
-                        <div class="my-4 d-flex">
-                            <img class="avatar avatar-md rounded-circle float-start me-3" src="assets/images/avatar/04.jpg" alt="avatar">
-                            <div>
-                                <div class="mb-2">
-                                    <h5 class="m-0">رضا کریمی</h5>
-                                    <span class="me-3 small">21 خرداد، 1400 در 3:00 بعد از ظهر </span>
-                                    <a href="#" class="text-body fw-normal">پاسخ</a>
-                                </div>
-                                <p>ما تا آنجا که ممکن است، با علاقه فراوان و دلواپسی زیاد به زندگی ادامه می دهیم، همان‌ طور که تا آنجا که ممکن است طولانی‌ تر در یک حباب صابون می‌ دمیم تا بزرگتر شود، گر چه با قطعیتی تمام می‌ دانیم که خواهد ترکید.</p>
+                                @if (ContentDto?.User?.Description != null)
+                                {
+                                    <p class="my-2">@ContentDto.User.Description</p>
+                                }
                             </div>
                         </div>
 
-                    </div>
+                    }
+
+                    @if (ContentDto?.Comments != null && ContentDto.Comments.Any())
+                    {
+                        <div class="mt-5">
+                            <h3>
+                                دیدگاه ها
+
+                                @ContentDto.Comments.Count
+                            </h3>
+
+                            @foreach (var item in ContentDto.Comments)
+                            {
+                                @if (item.User != null)
+                                {
+                                    <div class="my-4 d-flex">
+                                        <img class="avatar avatar-md rounded-circle float-start me-3" src="@(string.IsNullOrEmpty(ContentDto.User?.Image) ? "/assets/images/nopic_user.png" : Path.Combine(_config.GetValue<string>("ApiBaseUrl") , ContentDto.User.Image))" alt="avatar">
+                                        <div>
+                                            <div class="mb-2">
+                                                <h5 class="m-0">@($"{item.User.Name} {item.User.LastName}")</h5>
+                                                @if (item.CreatedAt != null)
+                                                {
+                                                    <span class="me-3 small">@(((DateTime)item.CreatedAt).GregorianToPersian())</span>
+                                                }
+                                            </div>
+                                            <p>@item.Description</p>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                     <div class="my-4 d-flex">
+                                        <img class="avatar avatar-md rounded-circle float-start me-3" src="/assets/images/nopic_user.png" alt="avatar">
+                                        <div>
+                                            <div class="mb-2">
+                                                <h5 class="m-0">@($"{item.Email} - کاربر مهمان")</h5>
+                                                @if (item.CreatedAt != null)
+                                                {
+                                                    <span class="me-3 small">@(((DateTime)item.CreatedAt).GregorianToPersian())</span>
+                                                }
+                                            </div>
+                                            <p>@item.Description</p>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+
+                    }
+                    else
+                    {
+                        <p class="alert alert-info">هیچ نظری برای این مطلب ثبت نشده است</p>
+                    }
 
                     <div>
                         <h3>ثبت دیدگاه</h3>

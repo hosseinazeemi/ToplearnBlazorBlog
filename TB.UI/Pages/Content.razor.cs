@@ -14,26 +14,26 @@ namespace TB.UI.Pages
         private bool showSpinner = false;
         protected override async Task OnInitializedAsync()
         {
-            //try
-            //{
-            //    var response = await _service.GetContent(Id);
-            //    if (response.Status)
-            //    {
-            //        ContentDto = response.Data;
-            //    }
-            //    else
-            //    {
-            //        // --- 
-            //    }
-            //    await Task.Delay(500);
-            //    showSpinner = false;
-            //    StateHasChanged();
-            //}
-            //catch (Exception)
-            //{
+            try
+            {
+                var response = await _service.GetContent(Id);
+                if (response.Status)
+                {
+                    ContentDto = response.Data;
+                }
+                else
+                {
+                    // --- 
+                }
+                await Task.Delay(500);
+                showSpinner = false;
+                StateHasChanged();
+            }
+            catch (Exception)
+            {
 
-            //    throw;
-            //}
+                throw;
+            }
             await base.OnInitializedAsync();
         }
     }

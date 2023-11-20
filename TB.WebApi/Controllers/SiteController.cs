@@ -121,5 +121,28 @@ namespace TB.WebApi.Controllers
                 throw;
             }
         }
+
+        [HttpGet("getContent")]
+        public ResponseDto<ContentItemDto> GetContent(int id)
+        {
+            try
+            {
+                var result = _service.GetContent(id);
+
+                if (result != null)
+                {
+                    ContentItemDto content = _mapper.Map<Content, ContentItemDto>(result);
+                    return new ResponseDto<ContentItemDto>(true, "با موفقیت دریافت شد", content);
+                }
+                else
+                {
+                    throw new ArgumentNullException("Get Content" , "Not Found Record");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
