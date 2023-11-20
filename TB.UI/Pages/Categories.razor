@@ -33,7 +33,7 @@
 
     @if (Category.Contents != null && Category.Contents.Any())
     {
-        <section class="position-relative p-0">
+        <section class="position-relative p-0 mb-5">
             <div class="container">
                 <div class="row g-4">
                     @foreach (var item in Category.Contents)
@@ -85,7 +85,13 @@
     }
     else
     {
-        <p class="alert alert-info text-center">هیچ محتوایی یافت نشد</p>
+        <section class="position-relative p-0 mb-5">
+            <div class="container">
+                <div class="row g-4">
+                    <p class="alert alert-info text-center">هیچ محتوایی یافت نشد</p>
+                </div>
+            </div>
+        </section>
     }
 
 }

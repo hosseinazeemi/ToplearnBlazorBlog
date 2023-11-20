@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TB.Shared.Dto.Global;
 using TB.Shared.Enums;
 
 namespace TB.Shared.Dto.Category
@@ -16,5 +17,6 @@ namespace TB.Shared.Dto.Category
         public string? Image { get; set; }
         public StatusType Status { get; set; }
         public bool IsSpecial { get; set; }
+        public FileDto? File { get; set; }
     }
 }

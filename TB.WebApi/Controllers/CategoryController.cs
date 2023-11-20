@@ -5,6 +5,7 @@ using TB.Application.Interfaces;
 using TB.Domain.Models;
 using TB.Shared.Dto.Category;
 using TB.Shared.Dto.Global;
+using TB.WebApi.Services;
 
 namespace TB.WebApi.Controllers
 {
@@ -14,10 +15,12 @@ namespace TB.WebApi.Controllers
     {
         private readonly IMapper _mapper;
         private readonly ICategoryService _categoryService;
-        public CategoryController(IMapper mapper, ICategoryService categoryService)
+        private readonly IFileService _fileService;
+        public CategoryController(IMapper mapper, ICategoryService categoryService,IFileService fileService)
         {
             _mapper = mapper;
             _categoryService = categoryService;
+            _fileService = fileService;
         }
 
         [HttpPost("create")]
@@ -27,6 +30,11 @@ namespace TB.WebApi.Controllers
 
             try
             {
+                if (data.File != null)
+                {
+                    model.Image = _fileService.Save(data.File, nameof(TB.Domain.Models.Category));
+                }
+
                 bool result = _categoryService.Create(model).GetAwaiter().GetResult();
 
                 return new ResponseDto<bool>(true, "ذخیره سازی با موفقیت انجام شد", result);
@@ -43,6 +51,15 @@ namespace TB.WebApi.Controllers
 
             try
             {
+                if (data.File != null)
+                {
+                    if (!string.IsNullOrEmpty(data.Image))
+                    {
+                        _fileService.Delete(data.Image);
+                    }
+                    model.Image = _fileService.Save(data.File, nameof(TB.Domain.Models.Category));
+                }
+
                 bool result = _categoryService.Update(model).GetAwaiter().GetResult();
 
                 return new ResponseDto<bool>(true, "ذخیره سازی با موفقیت انجام شد", result);

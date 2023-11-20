@@ -1,4 +1,4 @@
-function LoadFunctions() {
+function Load() {
     !function () {
 
         window.Element.prototype.removeClass = function () {
@@ -59,16 +59,9 @@ function LoadFunctions() {
                 e.backTotop(),
                 e.stickyPost(),
                 e.stickyFooter(),
-                e.lightBox(),
-                e.enableIsotope(),
                 e.darkMode(),
                 e.zooming(),
-                e.lazyLoading(),
-                e.quill(),
-                e.videoPlyr()
             e.overlayScrollbars(),
-                e.trafficsourcesChart(),
-                e.trafficstatsChart();
         },
         isVariableDefined: function (el) {
             return typeof !!el && (el) != 'undefined' && el != null;

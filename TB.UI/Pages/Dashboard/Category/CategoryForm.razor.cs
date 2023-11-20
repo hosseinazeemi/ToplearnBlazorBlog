@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using TB.Shared.Dto.Category;
+using TB.Shared.Dto.Global;
 using TB.Shared.Enums;
 
 namespace TB.UI.Pages.Dashboard.Category
@@ -46,6 +47,10 @@ namespace TB.UI.Pages.Dashboard.Category
 
             //string val = args.Value.ToString();
             //Enum.Parse(typeof(StatusType) , val , true);
+        }
+        private void OnConfirmFile(FileDto file)
+        {
+            Category.File = file;
         }
         #endregion
     }

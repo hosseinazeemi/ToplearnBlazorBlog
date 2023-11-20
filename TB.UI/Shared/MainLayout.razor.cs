@@ -28,8 +28,7 @@ namespace TB.UI.Shared
         {
             await Task.Delay(1500);
             showSite = true;
-            await Js.InvokeVoidAsync("LoadFunctions");
-            StateHasChanged();
+            await Js.InvokeVoidAsync("Load");
         }
         protected override async Task OnParametersSetAsync()
         {
