@@ -276,5 +276,19 @@ namespace TB.Application.Services
                 throw;
             }
         }
+        
+        public bool SaveComment(Comment comment)
+        {
+            try
+            {
+                _context.Comments.Add(comment);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

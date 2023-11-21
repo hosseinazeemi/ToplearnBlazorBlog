@@ -1,10 +1,27 @@
 ﻿.ck-content{
     min-height:130px!important;
 }
-
+.validation-errors{
+    padding:8px 30px 8px 5px;
+    border-radius:8px;
+    background:#fff2f2;
+    list-style-type:disc
+}
 .validation-message {
     font-size: 12px;
     padding: 4px 6px;
     color: #df0e0e;
     font-weight: normal;
+    margin-right: 20px;
+}
+.validation-errors > .validation-message{
+    font-size:13px;
+    font-weight:bold;
+}
+.comment-box {
+    border: 2px dashed #c2c2c2;
+    background: #fafafa;
+    border-radius: 12px;
+    padding: 8px;
+    margin: 20px 0;
 }

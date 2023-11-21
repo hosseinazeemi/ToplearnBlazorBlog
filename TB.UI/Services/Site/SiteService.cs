@@ -28,6 +28,10 @@ namespace TB.UI.Services.Site
         {
             return await _http.GetAsync<ContentItemDto>($"{baseUrl}/getContent?id={id}");
         }
+        public async Task<ResponseDto<bool>> SaveComment(CommentItemDto comment)
+        {
+            return await _http.PostAsync<bool , CommentItemDto>($"{baseUrl}/saveComment" , comment);
+        }
     }
 
     public interface ISiteService
@@ -36,5 +40,6 @@ namespace TB.UI.Services.Site
         Task<ResponseDto<ContentItemDto>> GetContent(int id);
         Task<ResponseDto<SiteIndexDataDto>> GetIndexData();
         Task<ResponseDto<SiteDataDto>> GetSiteData();
+        Task<ResponseDto<bool>> SaveComment(CommentItemDto comment);
     }
 }

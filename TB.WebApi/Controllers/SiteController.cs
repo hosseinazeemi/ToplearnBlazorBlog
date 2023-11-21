@@ -144,5 +144,23 @@ namespace TB.WebApi.Controllers
                 throw;
             }
         }
+
+        [HttpPost("saveComment")]
+        public ResponseDto<bool> SaveComment(CommentItemDto comment)
+        {
+            try
+            {
+                comment.CreatedAt = DateTime.UtcNow;
+                var data = _mapper.Map<CommentItemDto, Comment>(comment);
+
+                bool result = _service.SaveComment(data);
+
+                return new ResponseDto<bool>(true , "نظر با موفقیت ثبت شد و پس از تایید مدیریت نمایش داده می شود" , result);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

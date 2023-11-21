@@ -95,10 +95,10 @@
                             {
                                 @if (item.User != null)
                                 {
-                                    <div class="my-4 d-flex">
+                                    <div class="d-flex comment-box">
                                         <img class="avatar avatar-md rounded-circle float-start me-3" src="@(string.IsNullOrEmpty(ContentDto.User?.Image) ? "/assets/images/nopic_user.png" : Path.Combine(_config.GetValue<string>("ApiBaseUrl") , ContentDto.User.Image))" alt="avatar">
-                                        <div>
-                                            <div class="mb-2">
+                                        <div class="w-100">
+                                            <div class="mb-2 pb-1 border-bottom">
                                                 <h5 class="m-0">@($"{item.User.Name} {item.User.LastName}")</h5>
                                                 @if (item.CreatedAt != null)
                                                 {
@@ -111,16 +111,17 @@
                                 }
                                 else
                                 {
-                                     <div class="my-4 d-flex">
+                                    <div class="d-flex comment-box">
                                         <img class="avatar avatar-md rounded-circle float-start me-3" src="/assets/images/nopic_user.png" alt="avatar">
-                                        <div>
-                                            <div class="mb-2">
-                                                <h5 class="m-0">@($"{item.Email} - کاربر مهمان")</h5>
+                                        <div class="w-100">
+                                            <div class="mb-2 pb-1 border-bottom">
+                                                <h5 class="m-0">@($"کاربر مهمان")</h5>
                                                 @if (item.CreatedAt != null)
                                                 {
                                                     <span class="me-3 small">@(((DateTime)item.CreatedAt).GregorianToPersian())</span>
                                                 }
                                             </div>
+                                            <h6>@item.Title</h6>
                                             <p>@item.Description</p>
                                         </div>
                                     </div>
@@ -134,25 +135,31 @@
                         <p class="alert alert-info">هیچ نظری برای این مطلب ثبت نشده است</p>
                     }
 
-                    <div>
+                    <div class="position-relative">
+                        <MudOverlay Visible="@showCommentSpinner" LightBackground="true" Absolute="true">
+                            <MudProgressCircular Color="Color.Primary" Size="Size.Small" Indeterminate="true" />
+                        </MudOverlay>
                         <h3>ثبت دیدگاه</h3>
-                        <form class="row g-3 mt-2">
+                        <EditForm class="row g-3 mt-2" Model="commentDto" OnValidSubmit="SaveComment">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary />
+
                             <div class="col-md-6">
                                 <label class="form-label">ایمیل</label>
-                                <input type="email" class="form-control">
+                                <input type="email" @bind-value="commentDto.Email" name="Email" class="form-control">
                             </div>
-                             <div class="col-md-6">
+                            <div class="col-md-6">
                                 <label class="form-label">عنوان</label>
-                                <input type="text" class="form-control" aria-label="First name">
+                                <input type="text" @bind-value="commentDto.Title" name="Title" class="form-control" aria-label="First name">
                             </div>
                             <div class="col-12">
-                                <label class="form-label">متن دیدگاه *</label>
-                                <textarea class="form-control" rows="3"></textarea>
+                                <label class="form-label">متن نظر</label>
+                                <textarea class="form-control" @bind="commentDto.Description" name="Description" rows="3"></textarea>
                             </div>
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary">ثبت</button>
                             </div>
-                        </form>
+                        </EditForm>
                     </div>
                 </div>
             </div>
