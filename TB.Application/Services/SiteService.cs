@@ -265,10 +265,15 @@ namespace TB.Application.Services
                     .Where(p => p.Id == id && p.Status == StatusType.Active)
                     .Include(p => p.User)
                     .Include(p => p.Category)
-                    .Include(p => p.Comments)
+                    .Include(p => p.Comments.Where(p => p.Status == StatusType.Active).OrderByDescending(p => p.Id))
                     .ThenInclude(p => p.User)
                     .FirstOrDefault();
 
+                if (result != null)
+                {
+                    result.Visit += 1;
+                    _context.SaveChanges();
+                }
                 return result;
             }
             catch (Exception)

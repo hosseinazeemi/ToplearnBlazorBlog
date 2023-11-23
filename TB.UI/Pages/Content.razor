@@ -40,7 +40,34 @@
                                     {
                                         <li class="nav-item">@(((DateTime)ContentDto.CreatedAt).GregorianToPersian())</li>
                                     }
+
+
+                                    <li class="nav-item"><i class="far fa-eye me-1"></i> @ContentDto.Visit بازدید</li>
+
+                                    <li class="nav-item"><a href="#"><i class="fas fa-heart me-1 text-danger"></i></a> @ContentDto.Like</li>
                                 </ul>
+
+                                <div class="d-md-flex align-items-center justify-content-center mt-4">
+                                    <ul class="nav text-white-force">
+                                        @if (!string.IsNullOrEmpty(ContentDto.Whatsapp))
+                                        {
+                                            <li class="nav-item">
+                                                <a class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-facebook" href="@ContentDto.Whatsapp">
+                                                    <i class="fab fa-whatsapp align-middle"></i>
+                                                </a>
+                                            </li>
+
+                                        }
+                                        @if (!string.IsNullOrEmpty(ContentDto.Instagram))
+                                        {
+                                            <li class="nav-item">
+                                                <a class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-instagram" href="@ContentDto.Instagram">
+                                                    <i class="fab fa-instagram align-middle"></i>
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -43,7 +43,7 @@ namespace TB.UI.Pages.Dashboard.Content
             // request => save
             showSpinner = true;
             StateHasChanged();
-
+            content.User = null;
             var response = await _service.Update(content);
 
             if (response.Status)
