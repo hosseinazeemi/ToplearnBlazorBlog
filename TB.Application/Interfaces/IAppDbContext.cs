@@ -15,6 +15,7 @@ namespace TB.Application.Interfaces
         DbSet<Content> Contents { get; set; }
         DbSet<Comment> Comments { get; set; }
         DbSet<Setting> Setting { get; set; }
+        DbSet<Like> Likes { get; set; }
 
         int SaveChanges(bool acceptAll);
         int SaveChanges();

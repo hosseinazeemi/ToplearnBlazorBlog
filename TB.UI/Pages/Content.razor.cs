@@ -18,6 +18,7 @@ namespace TB.UI.Pages
         private CommentItemDto commentDto = new CommentItemDto();
         private bool showSpinner = false;
         private bool showCommentSpinner = false;
+        private bool showLikeSpinner = false;
         protected override async Task OnInitializedAsync()
         {
             try
@@ -42,7 +43,31 @@ namespace TB.UI.Pages
             }
             await base.OnInitializedAsync();
         }
+        private async Task Like()
+        {
+            showLikeSpinner = true;
+            StateHasChanged();
+            try
+            {
+                var response = await _service.LikeContent(ContentDto.Id);
+                if (response.Status && response.Data)
+                {
+                    _toast.Add(response.Message, Severity.Success);
+                }
+                else
+                {
+                    _toast.Add(response.Message, Severity.Error);
+                }
 
+                await Task.Delay(1500);
+                showLikeSpinner = false;
+                StateHasChanged();
+            }
+            catch (Exception e)
+            {
+                _toast.Add(e.Message, Severity.Error);
+            }
+        }
         private async Task SaveComment()
         {
             showCommentSpinner = true;

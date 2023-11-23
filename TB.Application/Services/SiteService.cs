@@ -281,7 +281,7 @@ namespace TB.Application.Services
                 throw;
             }
         }
-        
+
         public bool SaveComment(Comment comment)
         {
             try
@@ -292,6 +292,39 @@ namespace TB.Application.Services
             }
             catch (Exception)
             {
+                throw;
+            }
+        }
+
+        public bool LikeContent(int contentId, string ip)
+        {
+            try
+            {
+                Content? content = _context.Contents.FirstOrDefault(p => p.Id == contentId);
+                if (content == null)
+                    throw new ArgumentNullException(nameof(LikeContent), "Content Is Null");
+
+                Like? like = _context.Likes.FirstOrDefault(p => p.IpAddress.Equals(ip) && p.ContentId == contentId);
+
+                if (like == null)
+                {
+                    Like lk = new Like
+                    {
+                        ContentId = contentId , 
+                        IpAddress = ip
+                    };
+                    _context.Likes.Add(lk);
+                    content.Like += 1;
+                    _context.SaveChanges();
+
+                    return true;
+                }
+                return false;
+
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }

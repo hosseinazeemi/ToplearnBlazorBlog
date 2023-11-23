@@ -85,6 +85,13 @@
                         @((MarkupString)ContentDto.Description)
                     }
 
+                    <button class="btn btn-danger position-relative" @onclick="Like">
+                        <MudOverlay Visible="@showLikeSpinner" LightBackground="true" Absolute="true">
+                            <MudProgressCircular Color="Color.Primary" Size="Size.Small" Indeterminate="true" />
+                        </MudOverlay>
+                        <i class="fas fa-heart text-white">
+                        </i>
+                    </button>
                     @if (ContentDto.User != null)
                     {
                         <div class="d-flex p-2 my-3 bg-primary bg-opacity-10 rounded">

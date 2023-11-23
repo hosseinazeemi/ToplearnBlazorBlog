@@ -21,6 +21,7 @@ namespace TB.Application.Interfaces
         Setting GetSetting(string key);
         List<Category> GetSpecialCategories();
         List<Content> GetTodayNews();
+        bool LikeContent(int contentId, string ip);
         bool SaveComment(Comment comment);
     }
 }

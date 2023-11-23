@@ -20,5 +20,6 @@ namespace TB.Persistence.Context
         public DbSet<Content> Contents { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Setting> Setting { get; set; }
+        public DbSet<Like> Likes { get; set; }
     }
 }

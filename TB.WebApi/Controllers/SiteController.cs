@@ -162,5 +162,22 @@ namespace TB.WebApi.Controllers
                 throw;
             }
         }
+
+        [HttpPost("likeContent")]
+        public ResponseDto<bool> LikeContent([FromBody]int contentId)
+        {
+            try
+            {
+                string? ip = HttpContext?.Connection?.RemoteIpAddress?.ToString();
+
+                bool result = _service.LikeContent(contentId , ip);
+                return new ResponseDto<bool>(true , "با موفقیت انجام شد" , result);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
