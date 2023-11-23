@@ -15,7 +15,7 @@ namespace TB.Shared.Dto.Comment
         public string? Description { get; set; }
         public string? Email { get; set; }
         public int ContentId { get; set; }
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public StatusType Status { get; set; }
         public DateTime? CreatedAt { get; set; }
         public UserDto? User { get; set; }
