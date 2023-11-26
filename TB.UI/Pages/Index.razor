@@ -267,11 +267,6 @@
                                     <div class="position-relative">
                                         <img class="card-img" src="@(string.IsNullOrEmpty(item.Image) ? "/assets/images/nopic.jpg" : Path.Combine(_config.GetValue<string>("ApiBaseUrl") , item.Image))" alt="@(item.Title)">
                                         <div class="card-img-overlay d-flex align-items-start flex-column p-3">
-                                            <div class="w-100 mb-auto d-flex justify-content-end">
-                                                <div class="text-end ms-auto">
-                                                    <div class="icon-md bg-white bg-opacity-10 bg-blur text-white fw-bold rounded-circle" title="8.5 rating">8.5</div>
-                                                </div>
-                                            </div>
                                             @if (item.Category != null)
                                             {
                                                 <div class="w-100 mt-auto">
@@ -282,7 +277,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body px-0 pt-3">
-                                        <h5 class="card-title"><a href="post-single-3.html" class="btn-link text-reset">@item.Title</a></h5>
+                                        <h5 class="card-title"><a href="/blogs/@item.Id" class="btn-link text-reset">@item.Title</a></h5>
                                         <ul class="nav nav-divider align-items-center d-none d-sm-inline-block">
                                             @if (item.User != null)
                                             {
