@@ -1,4 +1,5 @@
-﻿@inject IConfiguration _config
+﻿@using TB.UI.Helper
+@inject IConfiguration _config
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu">
     <div class="offcanvas-header justify-content-end">
@@ -172,9 +173,13 @@
                                                                     <span>بدون کاربر</span>
                                                                 }
                                                             </li>
-                                                            <li class="nav-item">
-                                                                @item.CreatedAt
+                                                            @if (item.CreatedAt != null)
+                                                           {
+                                                                  <li class="nav-item">
+                                                                @(((DateTime)item.CreatedAt).GregorianToPersian())
                                                             </li>
+                                                           }
+                                                         
                                                         </ul>
                                                     </div>
                                                 </div>
