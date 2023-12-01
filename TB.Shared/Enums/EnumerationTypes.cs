@@ -41,4 +41,9 @@ namespace TB.Shared.Enums
         [Display(Name = "بنر سمت چپ صفحه اصلی")]
         IndexSmallLeftBanner
     }
+    public enum SettingKeyType
+    {
+        Banner,
+        Other
+    }
 }

@@ -3,6 +3,7 @@ using TB.Domain.Models;
 using TB.Shared.Dto.Category;
 using TB.Shared.Dto.Comment;
 using TB.Shared.Dto.Content;
+using TB.Shared.Dto.Setting;
 using TB.Shared.Dto.Site;
 using TB.Shared.Dto.User;
 
@@ -29,6 +30,7 @@ namespace TB.WebApi.Config
             CreateMap<Content, ContentItemDto>();
             CreateMap<Category, SiteCategoryDto>();
             CreateMap<Category, CategoryPageDto>();
+            CreateMap<Setting, SettingDto>();
         }
     }
 }

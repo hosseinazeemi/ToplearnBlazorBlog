@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using TB.Application.Interfaces;
@@ -16,10 +17,12 @@ namespace TB.WebApi.Controllers
     {
         IFileService _fileService;
         ISettingService _service;
-        public SettingController(IFileService fileService , ISettingService service)
+        IMapper _mapper;
+        public SettingController(IFileService fileService , ISettingService service , IMapper mapper)
         {
             _fileService = fileService;
             _service = service;
+            _mapper = mapper;
         }
 
         [HttpPost("banner")]
@@ -88,6 +91,24 @@ namespace TB.WebApi.Controllers
                 bool result = _service.UpdateSetting(setting);
 
                 return new ResponseDto<bool>(true , "موفقیت آمیز" , result);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        [HttpGet("getSetting")]
+        public ResponseDto<List<SettingDto>> GetSetting()
+        {
+            try
+            {
+                var result = _service.GetAllSetting();
+
+                List<SettingDto> allSetting = _mapper.Map<List<Setting>, List<SettingDto>>(result);
+
+                return new ResponseDto<List<SettingDto>>(true , "" , allSetting);
             }
             catch (Exception)
             {
