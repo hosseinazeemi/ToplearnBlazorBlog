@@ -40,7 +40,7 @@ namespace TB.WebApi.Controllers
                 var categories = _service.GetMenuCategories();
                 data.Categories = _mapper.Map<List<Category>, List<CategoryMenuDto>>(categories);
 
-                var setting = _service.GetSetting(SettingKeyType.Other.ToString());
+                var setting = _service.GetSetting(TB.Domain.Enums.SettingKeyType.Other.ToString());
                 if (setting != null)
                 {
                     data.Setting = JsonConvert.DeserializeObject<SettingItemDto>(setting.Value);
