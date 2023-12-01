@@ -26,12 +26,12 @@
     {
         if (firstRender)
         {
-            await JSRuntime.InvokeVoidAsync("CKEditorInterop.init", Id, UrlToPostImage, DotNetObjectReference.Create(this));
-
             if (string.IsNullOrWhiteSpace(UrlToPostImage))
             {
                 UrlToPostImage = string.Concat(config.GetValue<string>("ApiBaseUrl") , "/api/setting/uploadImage");
             }
+
+            await JSRuntime.InvokeVoidAsync("CKEditorInterop.init", Id, UrlToPostImage, DotNetObjectReference.Create(this));
         }
 
         await base.OnAfterRenderAsync(firstRender);

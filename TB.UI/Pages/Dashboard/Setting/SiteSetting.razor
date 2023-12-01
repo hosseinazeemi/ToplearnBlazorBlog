@@ -172,6 +172,20 @@
                                         <ValidationMessage For="(() => setting.Description)" />
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">محتوا درباره ما</label>
+                                        <CKEditor DisplayName="محتوا درباره ما" @bind-Value="@setting.About" />
+                                        <ValidationMessage For="(() => setting.About)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">محتوا شرایط و قوانین</label>
+                                        <CKEditor DisplayName="شرایط و قوانین" @bind-Value="@setting.Rule" />
+                                        <ValidationMessage For="(() => setting.Rule)" />
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <FileUploader CurrentImage="@setting.Logo" OnConfirmFile="ConfirmLogoFile" />

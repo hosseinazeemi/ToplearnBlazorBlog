@@ -116,5 +116,25 @@ namespace TB.WebApi.Controllers
                 throw;
             }
         }
+
+        [HttpPost("uploadImage")]
+        public string UploadImage(IFormFile upload)
+        {
+            try
+            {
+                string image  = _fileService.Save(upload , "CKEditor").GetAwaiter().GetResult();
+
+                return JsonConvert.SerializeObject(new
+                {
+                    uploaded = true , 
+                    url = image
+                });
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

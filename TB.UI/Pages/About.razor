@@ -1,0 +1,19 @@
+﻿@page "/about"
+
+<PageTitle>درباره ما</PageTitle>
+
+<section class="py-2">
+    <div class="container">
+        @if (settingData != null)
+        {
+
+            @((MarkupString)settingData.About)
+        }
+        else
+        {
+            <MudOverlay Visible="true" LightBackground="true" Absolute="false">
+                <MudProgressCircular Color="Color.Primary" Size="Size.Small" Indeterminate="true" />
+            </MudOverlay>
+        }
+    </div>
+</section>

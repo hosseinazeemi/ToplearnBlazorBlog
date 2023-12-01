@@ -1,4 +1,5 @@
 ﻿using TB.Shared.Dto.Global;
+using TB.Shared.Dto.Setting;
 using TB.Shared.Dto.Site;
 
 namespace TB.UI.Services.Site
@@ -40,6 +41,10 @@ namespace TB.UI.Services.Site
         {
             return await _http.GetAsync<List<ContentItemDto>>($"{baseUrl}/search?text={text}");
         }
+        public async Task<ResponseDto<SettingDto>> GetSetting(string key)
+        {
+            return await _http.GetAsync<SettingDto>($"{baseUrl}/getSetting?key={key}");
+        }
     }
 
     public interface ISiteService
@@ -47,6 +52,7 @@ namespace TB.UI.Services.Site
         Task<ResponseDto<CategoryPageDto>> GetCategory(int id);
         Task<ResponseDto<ContentItemDto>> GetContent(int id);
         Task<ResponseDto<SiteIndexDataDto>> GetIndexData();
+        Task<ResponseDto<SettingDto>> GetSetting(string key);
         Task<ResponseDto<SiteDataDto>> GetSiteData();
         Task<ResponseDto<bool>> LikeContent(int contentId);
         Task<ResponseDto<bool>> SaveComment(CommentItemDto comment);

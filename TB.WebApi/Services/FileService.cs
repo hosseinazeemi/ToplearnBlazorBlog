@@ -6,6 +6,7 @@ namespace TB.WebApi.Services
     {
         bool Delete(string fileName, string folderName = "");
         string Save(FileDto file, string folderName);
+        Task<string> Save(IFormFile file, string folderName);
     }
     public class FileService : IFileService
     {

@@ -203,5 +203,23 @@ namespace TB.WebApi.Controllers
                 throw;
             }
         }
+
+        [HttpGet("getSetting")]
+        public ResponseDto<SettingDto> GetSetting(string key)
+        {
+            try
+            {
+                var result = _service.GetSetting(key);
+
+                SettingDto data = _mapper.Map<Setting, SettingDto>(result);
+
+                return new ResponseDto<SettingDto>(true, "", data);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
