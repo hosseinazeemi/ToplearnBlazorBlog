@@ -328,5 +328,24 @@ namespace TB.Application.Services
                 throw;
             }
         }
+
+        public List<Content>? Search(string text)
+        {
+            try
+            {
+                List<Content>? data = _context.Contents
+                    .Where(p => p.Status == StatusType.Active && (p.Title.Contains(text) || p.Description.Contains(text)))
+                    .Include(p => p.User)
+                    .Include(p => p.Category)
+                    .Include(p => p.Comments.Where(p => p.Status == StatusType.Active).OrderByDescending(p => p.Id))
+                    .ThenInclude(p => p.User).ToList();
+
+                return data;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

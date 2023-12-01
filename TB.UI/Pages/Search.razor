@@ -1,0 +1,71 @@
+﻿@page "/search"
+@inject NavigationManager nav
+@inject IConfiguration _config
+@using TB.UI.Helper
+@using TB.Shared.Dto.Site
+
+<section class="position-relative p-0">
+    <div class="container">
+        <div class="row g-4 mb-5">
+            @if (searchResult != null)
+            {
+                @foreach (ContentItemDto item in searchResult)
+                {
+                    <div class="col-md-6">
+                        <div class="card card-overlay-bottom card-img-scale">
+                            <img class="card-img" src="@(string.IsNullOrEmpty(item.Image) ? "/assets/images/nopic.jpg" : Path.Combine(_config.GetValue<string>("ApiBaseUrl") , item.Image))" alt="@item.Title">
+                            <div class="card-img-overlay d-flex align-items-center p-3 p-sm-5">
+                                <div class="w-100 mt-auto">
+                                    <div class="col">
+                                        @if (item.Category != null)
+                                        {
+                                            <a href="/categories/@item.Category.Id" class="badge text-bg-success mb-2"><i class="fas fa-circle me-2"></i>@item.Category.Name</a>
+                                        }
+                                        <h2 class="text-white display-6"><a href="/content/@item.Id" class="btn-link text-reset stretched-link fw-normal">@item.Title</a></h2>
+                                        <ul class="nav nav-divider text-white-force align-items-center d-none d-sm-inline-block">
+                                            @if (item.User != null)
+                                            {
+                                                <li class="nav-item">
+                                                    <div class="nav-link">
+                                                        <div class="d-flex align-items-center text-white position-relative">
+                                                            <div class="avatar avatar-sm">
+                                                                <img class="avatar-img rounded-circle" src="@(string.IsNullOrEmpty(item.User?.Image) ? "/assets/images/nopic_user.png" : Path.Combine(_config.GetValue<string>("ApiBaseUrl") , item.User.Image))" alt="@($"{item?.User?.Name} {item?.User?.LastName}")">
+                                                            </div>
+                                                            <span class="ms-3">با <a href="#" class="stretched-link text-reset btn-link">@($"{item?.User?.Name} {item?.User?.LastName}")</a></span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            }
+
+                                            @if (item?.CreatedAt != null)
+                                            {
+                                                <li class="nav-item">@(((DateTime)item.CreatedAt).GregorianToPersian())</li>
+                                            }
+
+                                            @if (item?.Comments != null)
+                                            {
+                                                <li class="nav-item">
+                                                    <a href="#" class="btn-link"><i class="fas fa-comment-alt me-1"></i> @item.Comments.Count دیدگاه</a>
+                                                </li>
+                                            }
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            }
+            else
+            {
+                <MudOverlay Visible="true" LightBackground="true" Absolute="false">
+                    <MudProgressCircular Color="Color.Primary" Size="Size.Small" Indeterminate="true" />
+                </MudOverlay>
+            }
+
+        </div>
+    </div>
+</section>
+

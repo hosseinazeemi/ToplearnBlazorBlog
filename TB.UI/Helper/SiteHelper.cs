@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.WebUtilities;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -33,6 +35,26 @@ namespace TB.UI.Helper
                 .GetCustomAttribute<DisplayAttribute>();
 
             return item?.Name ?? "";
+        }
+
+        public static T GetQueryStringByKey<T>(this NavigationManager nav , string key)
+        {
+            var uri = nav.ToAbsoluteUri(nav.Uri);
+
+            QueryHelpers.ParseQuery(uri.Query).TryGetValue(key , out var queryResult);
+
+            if (typeof(T).Equals(typeof(int)))
+            {
+                int.TryParse(queryResult , out int result);
+                return (T)(object)result;
+            }
+
+            if (typeof(T).Equals(typeof(string)))
+            {
+                return (T)(object)queryResult.ToString();
+            }
+
+            return default;
         }
     }
 }

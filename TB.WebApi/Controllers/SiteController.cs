@@ -179,5 +179,29 @@ namespace TB.WebApi.Controllers
                 throw;
             }
         }
+
+
+        [HttpGet("search")]
+        public ResponseDto<List<ContentItemDto>> Search(string text)
+        {
+            try
+            {
+                var result = _service.Search(text);
+
+                if (result != null)
+                {
+                    List<ContentItemDto> content = _mapper.Map<List<Content>, List<ContentItemDto>>(result);
+                    return new ResponseDto<List<ContentItemDto>>(true, "با موفقیت دریافت شد", content);
+                }
+                else
+                {
+                    throw new ArgumentNullException("Search Exception", "Not Found Record");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

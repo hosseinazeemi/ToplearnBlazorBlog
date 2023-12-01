@@ -36,6 +36,10 @@ namespace TB.UI.Services.Site
         {
             return await _http.PostAsync<bool , int>($"{baseUrl}/likeContent" , contentId);
         }
+        public async Task<ResponseDto<List<ContentItemDto>>> Search(string text)
+        {
+            return await _http.GetAsync<List<ContentItemDto>>($"{baseUrl}/search?text={text}");
+        }
     }
 
     public interface ISiteService
@@ -46,5 +50,6 @@ namespace TB.UI.Services.Site
         Task<ResponseDto<SiteDataDto>> GetSiteData();
         Task<ResponseDto<bool>> LikeContent(int contentId);
         Task<ResponseDto<bool>> SaveComment(CommentItemDto comment);
+        Task<ResponseDto<List<ContentItemDto>>> Search(string text);
     }
 }

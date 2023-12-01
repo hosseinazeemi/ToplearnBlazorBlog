@@ -23,5 +23,6 @@ namespace TB.Application.Interfaces
         List<Content> GetTodayNews();
         bool LikeContent(int contentId, string ip);
         bool SaveComment(Comment comment);
+        List<Content>? Search(string text);
     }
 }
