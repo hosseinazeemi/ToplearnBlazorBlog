@@ -54,7 +54,7 @@ namespace TB.UI.Services.AuthService
         public AuthenticationState SetAuth(string token)
         {
             _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
-            return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity(ParseClaimsFromJwt(token))));
+            return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity(ParseClaimsFromJwt(token) , "jwt")));
         }
         private bool IsExpired(string? expired)
         {
