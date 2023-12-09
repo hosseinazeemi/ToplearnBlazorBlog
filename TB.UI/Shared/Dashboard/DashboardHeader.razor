@@ -1,4 +1,10 @@
-﻿
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using TB.Shared.Dto.Site
+@using TB.Shared.Enums
+@using TB.UI.Helper
+@inject IConfiguration _config
+@inject TB.UI.Services.AuthService.IJWTAuthService authService
+
 <header class="navbar-light navbar-sticky header-static border-bottom navbar-dashboard">
     <nav class="navbar navbar-expand-xl">
         <div class="container">
@@ -43,30 +49,34 @@
 
                 </ul>
             </div>
-            <div class="nav flex-nowrap align-items-center">
+            @if (userData != null)
+            {
+                <div class="nav flex-nowrap align-items-center">
                 <div class="nav-item ms-2 ms-md-3 dropdown">
                     <a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img class="avatar-img rounded-circle" src="assets/images/avatar/03.jpg" alt="avatar">
+                        <img class="avatar-img rounded-circle" src="@(string.IsNullOrEmpty(userData?.Image) ? "/assets/images/nopic_user.png" : Path.Combine(_config.GetValue<string>("ApiBaseUrl") , userData.Image))" alt="@($"{userData.Name} {userData.LastName}")">
                     </a>
 
                     <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
                         <li class="px-3">
                             <div class="d-flex align-items-center">
                                 <div class="avatar me-3">
-                                    <img class="avatar-img rounded-circle shadow" src="assets/images/avatar/03.jpg" alt="avatar">
+                                    <img class="avatar-img rounded-circle shadow" src="@(string.IsNullOrEmpty(userData?.Image) ? "/assets/images/nopic_user.png" : Path.Combine(_config.GetValue<string>("ApiBaseUrl") , userData.Image))" alt="@($"{userData.Name} {userData.LastName}")">
                                 </div>
                                 <div>
-                                    <a class="h6 mt-2 mt-sm-0" href="#"> علیرضا مرادی</a>
-                                    <p class="small m-0">example@gmail.com</p>
+                                    <a class="h6 mt-2 mt-sm-0" href="#">@($"{userData.Name} {userData.LastName}")</a>
+                                    <p class="small m-0">@userData?.Email</p>
                                 </div>
                             </div>
                             <hr>
                         </li>
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-person fa-fw me-2"></i>ویرایش</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-power fa-fw me-2"></i>خروج</a></li>
+                        <li><a class="dropdown-item" @onclick="Logout"><i class="bi bi-power fa-fw me-2"></i>خروج</a></li>
                     </ul>
                 </div>
             </div>
+                
+            }
+            
         </div>
     </nav>
 </header>

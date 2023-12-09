@@ -57,6 +57,7 @@ namespace TB.WebApi.Controllers
                 new Claim("LastName" , user.LastName),
                 new Claim("Email" , user.Email),
                 new Claim("UserId" , user.Id.ToString()),
+                new Claim("Image" , user.Image ?? ""),
                 new Claim("Phone" , user.Phone ?? ""),
                 new Claim(ClaimTypes.Role, user.Role.ToString()),
             };

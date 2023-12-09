@@ -19,12 +19,13 @@ namespace TB.UI.Helper
             PersianCalendar persian = new PersianCalendar();
             return String.Format("{0}/{1}/{2}", persian.GetYear(date), persian.GetMonth(date), persian.GetDayOfMonth(date));
         }
-        public static string SubStringDescription(this string str , int length = 80)
+        public static string SubStringDescription(this string str, int length = 80)
         {
             if (str.Length > length)
             {
                 return str.Substring(0, length);
-            }else
+            }
+            else
             {
                 return str;
             }
@@ -37,15 +38,15 @@ namespace TB.UI.Helper
             return item?.Name ?? "";
         }
 
-        public static T GetQueryStringByKey<T>(this NavigationManager nav , string key)
+        public static T GetQueryStringByKey<T>(this NavigationManager nav, string key)
         {
             var uri = nav.ToAbsoluteUri(nav.Uri);
 
-            QueryHelpers.ParseQuery(uri.Query).TryGetValue(key , out var queryResult);
+            QueryHelpers.ParseQuery(uri.Query).TryGetValue(key, out var queryResult);
 
             if (typeof(T).Equals(typeof(int)))
             {
-                int.TryParse(queryResult , out int result);
+                int.TryParse(queryResult, out int result);
                 return (T)(object)result;
             }
 
@@ -55,6 +56,11 @@ namespace TB.UI.Helper
             }
 
             return default;
+        }
+
+        public static T ParseEnum<T>(string value)
+        {
+            return (T)Enum.Parse(typeof(T) , value , true);
         }
     }
 }
