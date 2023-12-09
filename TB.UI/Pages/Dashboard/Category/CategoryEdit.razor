@@ -1,7 +1,8 @@
 ﻿@page "/dashboard/categories/edit/{Id:int}"
 @using TB.UI.Shared.Dashboard
 @layout DashboardLayout
-
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "Admin")]
 <section class="py-4">
     <div class="container">
         <div class="row pb-4">

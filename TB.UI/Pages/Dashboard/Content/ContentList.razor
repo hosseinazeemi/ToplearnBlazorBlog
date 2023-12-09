@@ -3,7 +3,8 @@
 @using TB.UI.Shared.Dashboard
 @layout DashboardLayout
 @inject IConfiguration config
-
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "Admin")]
 <section class="py-4">
     <div class="container">
         <div class="row pb-4">

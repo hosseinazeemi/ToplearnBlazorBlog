@@ -2,6 +2,7 @@
 using System.Text;
 using TB.Shared.Dto.Global;
 using TB.Shared.Enums;
+using TB.UI.Services.AuthService;
 
 namespace TB.UI.Services
 {
@@ -9,9 +10,11 @@ namespace TB.UI.Services
     {
         private readonly HttpClient _httpClient;
         private readonly JsonSerializerSettings _jsonSerializerSetting;
-        public HttpClientService(HttpClient httpClient)
+        private readonly JWTService _jwtService;
+        public HttpClientService(HttpClient httpClient , JWTService jwtService)
         {
             _httpClient = httpClient;
+            _jwtService = jwtService;
             _jsonSerializerSetting = new JsonSerializerSettings
             {
                 NullValueHandling = NullValueHandling.Ignore,
@@ -20,6 +23,8 @@ namespace TB.UI.Services
 
         public async Task<ResponseDto<TResult>> GetAsync<TResult>(string url)
         {
+            var auth = _jwtService.GetAuthenticationStateAsync();
+
             var response = await _httpClient.GetAsync(url);
 
             if (CheckStatusCode((int)response.StatusCode))
@@ -49,6 +54,8 @@ namespace TB.UI.Services
         }
         public async Task<ResponseDto<TResult>> PostAsync<TResult, TData>(string url, TData data)
         {
+            var auth = _jwtService.GetAuthenticationStateAsync();
+
             var serializeData = JsonConvert.SerializeObject(data, _jsonSerializerSetting);
             var stringContent = new StringContent(serializeData, Encoding.UTF8, "application/json");
 

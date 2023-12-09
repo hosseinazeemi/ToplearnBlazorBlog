@@ -5,18 +5,36 @@
         <Found Context="routeData">
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
                 <Authorizing>
-                    <h6>OK</h6>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class=" alert alert-info">سیستم در حال احراز هویت است</p>
+                            </div>
+                        </div>
+                    </div>
                 </Authorizing>
                 <NotAuthorized>
-                    <h6>No</h6>
+                     <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class=" alert alert-info">شما به این بخش دسترسی ندارید</p>
+                            </div>
+                        </div>
+                    </div>
                 </NotAuthorized>
             </AuthorizeRouteView>
             <FocusOnNavigate RouteData="@routeData" Selector="h1" />
         </Found>
         <NotFound>
-            <PageTitle>Not found</PageTitle>
+            <PageTitle>پیدا نشد</PageTitle>
             <LayoutView Layout="@typeof(MainLayout)">
-                <p role="alert">Sorry, there's nothing at this address.</p>
+                 <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class=" alert alert-info">آدرس مورد نظر شما یافت نشد</p>
+                            </div>
+                        </div>
+                    </div>
             </LayoutView>
         </NotFound>
     </Router>

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TB.Application.Interfaces;
@@ -21,6 +22,7 @@ namespace TB.WebApi.Controllers
         }
 
         [HttpPost("create")]
+        [Authorize(Roles = "Admin")]
         public ResponseDto<bool> Create([FromBody] CommentDto data)
         {
             Comment model = _mapper.Map<CommentDto, Comment>(data);
@@ -37,6 +39,7 @@ namespace TB.WebApi.Controllers
             }
         }
         [HttpPost("update")]
+        [Authorize(Roles = "Admin")]
         public ResponseDto<bool> Update([FromBody] CommentDto data)
         {
             Comment model = _mapper.Map<CommentDto, Comment>(data);
@@ -53,6 +56,7 @@ namespace TB.WebApi.Controllers
             }
         }
         [HttpPost("delete")]
+        [Authorize(Roles = "Admin")]
         public ResponseDto<bool> Delete([FromBody] int id)
         {
             try
@@ -67,6 +71,7 @@ namespace TB.WebApi.Controllers
             }
         }
         [HttpGet("getAllComments")]
+        [Authorize(Roles = "Admin")]
         public ResponseDto<List<CommentDto>> GetAllComments([FromQuery]int id)
         {
             try
@@ -83,6 +88,7 @@ namespace TB.WebApi.Controllers
             }
         }
         [HttpPost("findById")]
+        [Authorize(Roles = "Admin")]
         public ResponseDto<CommentDto> FindById([FromBody] int id)
         {
             try

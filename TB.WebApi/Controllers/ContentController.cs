@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TB.Application.Interfaces;
@@ -24,6 +25,7 @@ namespace TB.WebApi.Controllers
         }
 
         [HttpPost("create")]
+        [Authorize(Roles = "Admin")]
         public ResponseDto<bool> Create([FromBody] ContentDto data)
         {
             Content model = _mapper.Map<ContentDto, Content>(data);
@@ -47,6 +49,7 @@ namespace TB.WebApi.Controllers
             }
         }
         [HttpPost("update")]
+        [Authorize(Roles = "Admin")]
         public ResponseDto<bool> Update([FromBody] ContentDto data)
         {
             Content model = _mapper.Map<ContentDto, Content>(data);
@@ -73,6 +76,7 @@ namespace TB.WebApi.Controllers
             }
         }
         [HttpPost("delete")]
+        [Authorize(Roles = "Admin")]
         public ResponseDto<bool> Delete([FromBody] int id)
         {
             try
@@ -87,6 +91,7 @@ namespace TB.WebApi.Controllers
             }
         }
         [HttpGet("getAll")]
+        [Authorize(Roles = "Admin")]
         public ResponseDto<List<ContentDto>> GetAll()
         {
             try
@@ -103,6 +108,7 @@ namespace TB.WebApi.Controllers
             }
         }
         [HttpPost("findById")]
+        [Authorize(Roles = "Admin")]
         public ResponseDto<ContentDto> FindById([FromBody] int id)
         {
             try

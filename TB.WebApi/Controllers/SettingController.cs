@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -13,6 +14,7 @@ namespace TB.WebApi.Controllers
 {
     [Route("api/setting")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class SettingController : ControllerBase
     {
         IFileService _fileService;

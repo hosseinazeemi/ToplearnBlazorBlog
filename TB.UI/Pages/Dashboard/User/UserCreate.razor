@@ -1,6 +1,7 @@
 ﻿@page "/dashboard/users/create"
 @using TB.UI.Shared.Dashboard
-
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "Admin")]
 @layout DashboardLayout
 
 <section class="py-4">

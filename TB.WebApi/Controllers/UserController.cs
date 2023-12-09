@@ -13,6 +13,7 @@ namespace TB.WebApi.Controllers
 {
     [Route("api/users")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class UserController : ControllerBase
     {
         private readonly IMapper _mapper;
@@ -79,7 +80,6 @@ namespace TB.WebApi.Controllers
             }
         }
         [HttpPost("delete")]
-        [Authorize(Roles = "Admin")]
         public ResponseDto<bool> Delete([FromBody] int id)
         {
             try
