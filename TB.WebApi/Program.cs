@@ -5,6 +5,8 @@ using System.Text;
 using System.Text.Json.Serialization;
 using TB.Application.Interfaces;
 using TB.Application.Services;
+using TB.Infrastructure.Interfaces;
+using TB.Infrastructure.Services;
 using TB.Persistence.Context;
 using TB.WebApi.Services;
 
@@ -32,6 +34,8 @@ namespace TB.WebApi
             builder.Services.AddScoped<ICommentService , CommentService>();
             builder.Services.AddScoped<ISiteService , SiteService>();
             builder.Services.AddScoped<ISettingService , SettingService>();
+            builder.Services.AddScoped<IEmailSender , EmailSender>();
+            builder.Services.AddScoped<IMessageSender, EmailSender>();
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(op =>

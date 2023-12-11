@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using TB.Application.Interfaces;
 using TB.Domain.Enums;
 using TB.Domain.Models;
+using TB.Infrastructure.Interfaces;
 using TB.Shared.Dto.Global;
 using TB.Shared.Dto.Setting;
 using TB.Shared.Dto.Site;
@@ -18,10 +19,12 @@ namespace TB.WebApi.Controllers
     {
         IMapper _mapper;
         ISiteService _service;
-        public SiteController(IMapper mapper,ISiteService service)
+        IEmailSender _emailSender;
+        public SiteController(IMapper mapper,ISiteService service , IEmailSender emailSender)
         {
             _mapper = mapper;
             _service = service;
+            _emailSender = emailSender;
         }
 
         [HttpGet("getSiteData")]
@@ -152,9 +155,18 @@ namespace TB.WebApi.Controllers
             {
                 comment.CreatedAt = DateTime.UtcNow;
                 var data = _mapper.Map<CommentItemDto, Comment>(comment);
-
+                if (data.UserId == 0)
+                {
+                    data.UserId = null;
+                }
                 bool result = _service.SaveComment(data);
 
+                if (result)
+                {
+                    string title = "نظر شما با موفقیت ثبت شد";
+                    string content = "<p style='color:red'>" + "نظر با موفقیت ثبت شد و پس از تایید مدیریت نمایش داده می شود" + "</p>";
+                    _emailSender.SendAsync(comment.Email , title , content);
+                }
                 return new ResponseDto<bool>(true , "نظر با موفقیت ثبت شد و پس از تایید مدیریت نمایش داده می شود" , result);
             }
             catch (Exception)

@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TB.Application\TB.Application.csproj" />
+    <ProjectReference Include="..\TB.Infrastructure\TB.Infrastructure.csproj" />
     <ProjectReference Include="..\TB.Persistence\TB.Persistence.csproj" />
     <ProjectReference Include="..\TB.Shared\TB.Shared.csproj" />
   </ItemGroup>
