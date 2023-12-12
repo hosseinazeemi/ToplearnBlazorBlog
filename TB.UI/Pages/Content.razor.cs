@@ -16,21 +16,28 @@ namespace TB.UI.Pages
         public int Id { get; set; }
         private ContentItemDto? ContentDto = new ContentItemDto();
         private CommentItemDto commentDto = new CommentItemDto();
-        private bool showSpinner = false;
+        private bool showSpinner = true;
         private bool showCommentSpinner = false;
         private bool showLikeSpinner = false;
         protected override async Task OnInitializedAsync()
         {
+            await base.OnInitializedAsync();
+        }
+        protected override async Task OnParametersSetAsync()
+        {
+            await LoadData();
+            base.OnParametersSetAsync();
+        }
+        private async Task LoadData()
+        {
             try
             {
+                showSpinner = true;
+                StateHasChanged();
                 var response = await _service.GetContent(Id);
                 if (response.Status)
                 {
                     ContentDto = response.Data;
-                }
-                else
-                {
-                    // --- 
                 }
                 await Task.Delay(500);
                 showSpinner = false;
@@ -41,7 +48,6 @@ namespace TB.UI.Pages
 
                 throw;
             }
-            await base.OnInitializedAsync();
         }
         private async Task Like()
         {

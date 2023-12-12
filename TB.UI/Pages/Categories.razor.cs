@@ -14,15 +14,18 @@ namespace TB.UI.Pages
         private bool showSpinner = true;
         protected override async Task OnInitializedAsync()
         {
+            await base.OnInitializedAsync();
+        }
+        private async Task LoadData()
+        {
             try
             {
+                showSpinner = true;
+                StateHasChanged();
                 var response = await _service.GetCategory(Id);
                 if (response.Status)
                 {
                     Category = response.Data;
-                }else
-                {
-                    // --- 
                 }
                 await Task.Delay(500);
                 showSpinner = false;
@@ -33,7 +36,11 @@ namespace TB.UI.Pages
 
                 throw;
             }
-            await base.OnInitializedAsync();
+        }
+        protected override async Task OnParametersSetAsync()
+        {
+            await LoadData();
+            await base.OnParametersSetAsync();
         }
     }
 }
