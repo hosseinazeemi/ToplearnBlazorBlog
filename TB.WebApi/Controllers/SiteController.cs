@@ -50,10 +50,9 @@ namespace TB.WebApi.Controllers
                 }
                 return new ResponseDto<SiteDataDto>(true , "دریافت با موفقیت انجام شد" , data);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //return new ResponseDto<SiteDataDto>(false, "درخواست با خطا مواجه شد", data);
-                throw;
+                return new ResponseDto<SiteDataDto>(false, e.Message, null);
             }
         }
 
