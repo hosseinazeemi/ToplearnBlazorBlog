@@ -100,9 +100,9 @@ namespace TB.WebApi.Controllers
                 }
                 return new ResponseDto<SiteIndexDataDto>(true , "دریافت با موفقیت انجام شد" , siteIndexData);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                return new ResponseDto<SiteIndexDataDto>(false, e.Message, null);
             }
         }
 
@@ -117,10 +117,9 @@ namespace TB.WebApi.Controllers
 
                 return new ResponseDto<CategoryPageDto>(true  , "دریافت شد" , item);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                return new ResponseDto<CategoryPageDto>(false, e.Message, null);
             }
         }
 
@@ -141,9 +140,9 @@ namespace TB.WebApi.Controllers
                     throw new ArgumentNullException("Get Content" , "Not Found Record");
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                return new ResponseDto<ContentItemDto>(false, e.Message, null);
             }
         }
 
@@ -168,9 +167,9 @@ namespace TB.WebApi.Controllers
                 }
                 return new ResponseDto<bool>(true , "نظر با موفقیت ثبت شد و پس از تایید مدیریت نمایش داده می شود" , result);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                return new ResponseDto<bool>(false, e.Message, false);
             }
         }
 
@@ -184,10 +183,9 @@ namespace TB.WebApi.Controllers
                 bool result = _service.LikeContent(contentId , ip);
                 return new ResponseDto<bool>(true , "با موفقیت انجام شد" , result);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                return new ResponseDto<bool>(false, e.Message, false);
             }
         }
 
@@ -209,9 +207,9 @@ namespace TB.WebApi.Controllers
                     throw new ArgumentNullException("Search Exception", "Not Found Record");
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                return new ResponseDto<List<ContentItemDto>>(false, e.Message, null);
             }
         }
 
@@ -226,10 +224,9 @@ namespace TB.WebApi.Controllers
 
                 return new ResponseDto<SettingDto>(true, "", data);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                return new ResponseDto<SettingDto>(false, e.Message, null);
             }
         }
     }
